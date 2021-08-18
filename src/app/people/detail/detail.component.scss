@@ -34,10 +34,3 @@
     }
   }
 }
-
-.footer {
-  .paginator {
-    @include tyl-flex-container(flex, row, nowrap, center);
-    font-size: 0.75rem;
-  }
-}
