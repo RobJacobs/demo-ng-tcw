@@ -1,0 +1,46 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+$card-width: 320;
+
+:host {
+  display: grid;
+}
+
+.announcements {
+  color: white;
+}
+
+.body {
+  justify-content: center;
+  @include tyl-flex-container(flex, row, wrap);
+
+  tcw-card {
+    margin: 12px;
+    width: #{$card-width}px;
+    text-align: center;
+
+    img {
+      margin: 16px 16px 0px 16px;
+      height: 120px;
+      width: 120px;
+    }
+
+    h3 {
+      margin: 0;
+      & + .tyl-typography--body2 {
+        margin: 16px 0;
+      }
+    }
+
+    > tcw-button {
+      margin-top: 8px;
+    }
+  }
+}
+
+.footer {
+  min-height: 48px;
+  @include tyl-flex-container(flex, row, nowrap, center);
+  padding: 0 16px;
+}

@@ -1,0 +1,37 @@
+<tcw-toolbar class="header">
+  <div slot="start">
+    <h2 class="tyl-typography--title">Profile</h2>
+    <img *ngIf="imageUrl" [src]="imageUrl" (error)="imageError($event)" alt="" />
+  </div>
+
+  <div slot="end">
+    <tcw-button type="outlined">
+      <button type="button" (click)="loadProfile()">Load profile</button>
+    </tcw-button>
+  </div>
+</tcw-toolbar>
+
+<tcw-tab-bar [activeTab]="activeTab">
+  <tcw-tab (tcw-tab-interacted)="tabSelected('personal')" [attr.theme]="isInvalid(personalFormGroup, 0) ? 'danger' : null">Personal</tcw-tab>
+  <tcw-tab (tcw-tab-interacted)="tabSelected('address')" [attr.theme]="isInvalid(addressFormGroup, 1) ? 'danger' : null">Address</tcw-tab>
+</tcw-tab-bar>
+
+<div class="body">
+  <form novalidate autocomplete="off" [formGroup]="cache.formGroup">
+    <router-outlet></router-outlet>
+    <p>
+      {{cache.formGroup.value | json}}
+    </p>
+  </form>
+</div>
+
+<tcw-toolbar class="footer" inverted>
+  <div slot="end">
+    <tcw-button type="unelevated">
+      <button type="button" (click)="save()" [disabled]="cache.formGroup.invalid || !cache.formGroup.dirty">Save</button>
+    </tcw-button>
+    <tcw-button type="outlined">
+      <button type="button" (click)="cancel()">Cancel</button>
+    </tcw-button>
+  </div>
+</tcw-toolbar>

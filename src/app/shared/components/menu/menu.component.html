@@ -1,0 +1,44 @@
+<tcw-list class="menu" role="navigation" (tcw-list-item-select)="menuItemSelected($event.detail.value)">
+  <ng-container *ngFor="let option of appCache.menu.options; let i = index;">
+    <ng-container *ngTemplateOutlet="option.children && option.children.length ? itemExpanderTemplate : itemTemplate; context: { option: option, index: i }">
+    </ng-container>
+  </ng-container>
+</tcw-list>
+
+<tcw-button slot="footer" class="expander">
+  <button type="button" aria-label="expand menu" (click)="expand()">
+    <tcw-icon class="tyl-color-icon" aria-hidden="true" [name]="appCache.menu.type === 'mini' ? 'chevron_right' : 'chevron_left'"></tcw-icon>
+  </button>
+</tcw-button>
+
+<ng-template #itemTemplate let-option="option">
+  <tcw-list-item class="menu__item" [value]="option.value" [selected]="!option.children?.length ? option.value === appCache.activeRoute[0] : option.value === appCache.activeRoute[1]">
+    <tcw-icon *ngIf="option.icon" slot="leading" aria-hidden="true" [name]="option.icon"></tcw-icon>
+    <span class="tyl-list-item__text">{{option.label}}</span>
+  </tcw-list-item>
+</ng-template>
+
+<ng-template #itemExpanderTemplate let-option="option" let-index="index">
+  <tcw-expansion-panel *ngIf="appCache.menu.type === 'dismissible'">
+    <tcw-list-item class="menu__item menu__item--expander" slot="header">
+      <tcw-icon *ngIf="option.icon" slot="leading" aria-hidden="true" [name]="option.icon"></tcw-icon>
+      <span class="tyl-list-item__text">{{option.label}}</span>
+      <tcw-open-icon slot="trailing"></tcw-open-icon>
+    </tcw-list-item>
+    <tcw-list class="menu__item menu__item--nested">
+      <ng-container *ngFor="let childOption of option.children">
+        <ng-container *ngTemplateOutlet="childOption.children && childOption.children.length ? itemExpanderTemplate : itemTemplate; context: { option: childOption }">
+        </ng-container>
+      </ng-container>
+    </tcw-list>
+  </tcw-expansion-panel>
+  <ng-container *ngIf="appCache.menu.type === 'mini'">
+    <tcw-menu [options]="option.children" placement="right-top" (tcw-menu-select)="menuItemSelected($event.detail.value)">
+      <tcw-list-item class="menu__item" [value]="option.value" [selected]="option.value === appCache.activeRoute[0]">
+        <!-- <span *ngIf="option.icon" [ngClass]="option.class" slot="leading" aria-hidden="true">{{option.icon}}</span> -->
+        <tcw-icon *ngIf="option.icon" slot="leading" aria-hidden="true" [name]="option.icon"></tcw-icon>
+        <span class="tyl-list-item__text">{{option.label}}</span>
+      </tcw-list-item>
+    </tcw-menu>
+  </ng-container>
+</ng-template>

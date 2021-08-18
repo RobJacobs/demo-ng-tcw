@@ -1,0 +1,21 @@
+<div class="tyl-dialog__header">
+  <span class="tyl-typography--headline5">{{title}}</span>
+  <tcw-icon-button>
+    <button type="button" aria-label="close" (click)="close()">
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="close"></tcw-icon>
+    </button>
+  </tcw-icon-button>
+</div>
+
+<div class="tyl-dialog__body tyl-dialog__body--scrollable">
+  {{message}}
+</div>
+
+<div class="tyl-dialog__footer">
+  <tcw-button type="unelevated">
+    <button type="button" (click)="close(true)">Ok</button>
+  </tcw-button>
+  <tcw-button type="outlined">
+    <button type="button" (click)="close()">Cancel</button>
+  </tcw-button>
+</div>

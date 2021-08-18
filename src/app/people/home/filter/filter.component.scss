@@ -1,0 +1,51 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+tcw-drawer {
+  --tyl-drawer-width: 320px;
+}
+
+.filter {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+
+  .header {
+    @include tyl-flex-container(flex, row, nowrap, center);
+
+    &__title {
+      margin-left: 16px;
+    }
+
+    tcw-icon-button {
+      margin-left: auto;
+    }
+
+    border-bottom: $tyl-border;
+  }
+
+  .body {
+    overflow: auto;
+    padding: 8px 16px;
+    tcw-divider {
+      margin: 8px 0;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 8px 16px;
+    border-top: $tyl-border;
+
+    tcw-button {
+      margin-left: 8px;
+    }
+  }
+}

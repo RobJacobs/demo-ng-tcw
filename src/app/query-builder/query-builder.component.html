@@ -1,0 +1,92 @@
+<form [formGroup]="formGroup" novalidate autocomplete="off">
+  <div formArrayName="filters">
+    <ng-container *ngFor="let filterGroup of formGroup.get('filters')?.controls; let index = index;">
+      <div class="tyl-card tyl-card--padded tyl-card--outlined filter__group">
+        <ng-container *ngTemplateOutlet="filterFormTemplate, context: { formGroup: filterGroup, index: index }"></ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <tcw-button class="filter__group__add">
+    <button type="button" (click)="addFilter(formGroup, 'condition')">
+      <tcw-icon aria-hidden="true" name="add_circle"></tcw-icon> Add a new condition
+    </button>
+  </tcw-button>
+
+  <p>{{formGroup.value | json}}</p>
+</form>
+
+<ng-template #filterFormTemplate let-formGroup="formGroup" let-index="index">
+  <ng-container *ngIf="index > 0">
+    <ng-container *ngTemplateOutlet="filterHeaderTemplate, context: { formGroup: formGroup }"></ng-container>
+  </ng-container>
+
+  <div class="filter__form" [formGroup]="formGroup">
+    <tcw-autocomplete formControlName="property" [options]="propertyOptions" [filter]="propertyFilter" (blur)="formGroup.get('property').updateValueAndValidity()">
+      <tcw-text-field required [invalid]="isInvalid(formGroup, 'property')">
+        <input type="text" id="{{'app--query-builder--filter-property' + index}}" />
+        <label for="{{'app--query-builder--filter-property' + index}}">Property</label>
+        <tcw-icon slot="trailing" class="tyl-dropdown-icon" name="arrow_drop_down" aria-hidden="true"></tcw-icon>
+        <span *ngIf="isInvalid(formGroup, 'property')" slot="helper-text">A property is required</span>
+      </tcw-text-field>
+    </tcw-autocomplete>
+
+    <tcw-select formControlName="operator" label="Operator" required [invalid]="isInvalid(formGroup, 'operator')" (blur)="formGroup.get('operator').updateValueAndValidity()">
+      <tcw-option [value]="operator.value" *ngFor="let operator of operatorOptions">{{operator.label}}</tcw-option>
+      <span *ngIf="isInvalid(formGroup, 'operator')" slot="helper-text">An operator is required</span>
+    </tcw-select>
+
+    <tcw-text-field [ngClass]="{'tyl--hidden': formGroup.get('operator').value === 6}" required [invalid]="isInvalid(formGroup, 'value')">
+      <input type="text" id="{{'app--query-builder--filter-value-' + index}}" formControlName="value" (blur)="formGroup.get('value').updateValueAndValidity()">
+      <label for="{{'app--query-builder--filter-value-' + index}}" slot="label">Value</label>
+      <span *ngIf="isInvalid(formGroup, 'value')" slot="helper-text">A value is required</span>
+    </tcw-text-field>
+
+    <div [ngClass]="{'tyl--hidden': formGroup.get('operator').value !== 6}" class="filter__form__range">
+      <tcw-text-field required [invalid]="isInvalid(formGroup, 'minValue')">
+        <input type="text" id="{{'app--query-builder--filter-min-' + index}}" formControlName="minValue" (blur)="formGroup.get('minValue').updateValueAndValidity()">
+        <label for="{{'app--query-builder--filter-min-' + index}}" slot="label">Minimum</label>
+        <span *ngIf="isInvalid(formGroup, 'minValue')" slot="helper-text">A minimum value is required</span>
+      </tcw-text-field>
+      <tcw-text-field required [invalid]="isInvalid(formGroup, 'maxValue')">
+        <input type="text" id="{{'app--query-builder--filter-max-' + index}}" formControlName="maxValue" (blur)="formGroup.get('maxValue').updateValueAndValidity()">
+        <label for="{{'app--query-builder--filter-max-' + index}}" slot="label">Maximum</label>
+        <span *ngIf="isInvalid(formGroup, 'maxValue')" slot="helper-text">
+          {{formGroup.get('maxValue').errors.required ? 'A maximum value is required' : formGroup.get('maxValue').errors.range ? 'Max value must be greater or equal to min value' : ''}}
+        </span>
+      </tcw-text-field>
+    </div>
+
+    <div class="filter__form__action">
+      <tcw-menu [options]="filterOptions" (tcw-menu-select)="addFilter(formGroup, $event.detail.value)">
+        <tcw-icon-button>
+          <button type="button" aria-label="add filter item">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="add_circle"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </tcw-menu>
+      <tcw-icon-button>
+        <button type="button" (click)="deleteFilter(formGroup)" aria-label="Delete filter">
+          <tcw-icon class="tyl-color-icon" aria-hidden="true" name="delete"></tcw-icon>
+        </button>
+      </tcw-icon-button>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let filter of formGroup.get('filters')?.controls">
+    <ng-container *ngTemplateOutlet="filterHeaderTemplate, context: { formGroup: filter.controls[0] }"></ng-container>
+    <div class="filter__group">
+      <ng-container *ngFor="let child of filter.controls; let index = index;">
+        <ng-container *ngTemplateOutlet="filterFormTemplate, context: { formGroup: child, index: index }"></ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #filterHeaderTemplate let-formGroup="formGroup">
+  <div class="filter__header">
+    <tcw-select [formControl]="formGroup.get('condition')" class="filter__header__condition">
+      <tcw-option [value]="condition.value" *ngFor="let condition of conditionOptions">{{condition.label}}</tcw-option>
+    </tcw-select>
+  </div>
+</ng-template>

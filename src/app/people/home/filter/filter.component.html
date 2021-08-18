@@ -1,0 +1,37 @@
+<tcw-drawer direction="right" type="dismissible" [open]="viewCache.showFilter" open="false" (tcw-drawer-close)="viewCache.showFilter = false">
+  <div class="filter" *ngIf="viewCache.showFilter">
+    <div class="header">
+      <span class="header__title tyl-typography--subtitle1">Filter people</span>
+      <tcw-icon-button>
+        <button type="button" aria-label="close" (click)="viewCache.showFilter = false">
+          <tcw-icon class="tyl-color-icon" aria-hidden="true" name="close"></tcw-icon>
+        </button>
+      </tcw-icon-button>
+    </div>
+    <form class="body" [formGroup]="formGroup" novalidate autocomplete="off" (ngSubmit)="applyFilter()">
+      <tcw-text-field>
+        <input type="text" id="home-filter--first-name" formControlName="firstName" appAutoFocus>
+        <label for="home-filter--first-name" slot="label">First name</label>
+      </tcw-text-field>
+      <tcw-text-field>
+        <input type="text" id="home-filter--last-name" formControlName="lastName">
+        <label for="home-filter--last-name" slot="label">Last name</label>
+      </tcw-text-field>
+      <tcw-select label="Gender" formControlName="gender" [options]="genderOptions" multiple="true"></tcw-select>
+      <tcw-text-field>
+        <input type="text" id="home-filter--occupation" formControlName="occupation">
+        <label for="home-filter--occupation" slot="label">Occupation</label>
+      </tcw-text-field>
+      <tcw-divider></tcw-divider>
+      <app-autocomplete-range [optionFilter]="optionFilter('facet')" formControlName="facet" label="Facet"></app-autocomplete-range>
+    </form>
+    <div class="footer">
+      <tcw-button type="outlined">
+        <button type="button" (click)="clearFilter()">Clear</button>
+      </tcw-button>
+      <tcw-button type="unelevated">
+        <button type="submit" (click)="applyFilter()">Apply</button>
+      </tcw-button>
+    </div>
+  </div>
+</tcw-drawer>

@@ -1,0 +1,75 @@
+@import 'variables';
+@import 'mixins';
+
+@import '@tylertech/tyler-components-web/dist/tcw-material-design.css';
+@import '@tylertech/tyler-components-web/styles/utils/tyl-utils';
+@import '@tylertech/tyler-components-web/styles/utils/tyl-flex';
+@import '@tylertech/tyler-components-web/styles/typography/tyl-form';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+html,
+body,
+app-root {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+router-outlet {
+  display: none;
+}
+
+tcw-linear-progress {
+  --mdc-theme-tertiary: var(--mdc-theme-secondary);
+}
+
+tcw-page-state {
+  --tyl-page-state-vertical-margin: 32px;
+}
+
+tcw-toolbar {
+  white-space: nowrap;
+  .tyl-typography--title {
+    margin: 0;
+  }
+}
+
+tcw-list-item {
+  tcw-checkbox + .tyl-list-item__text {
+    cursor: pointer;
+  }
+}
+
+.header,
+.footer {
+  tcw-icon-button {
+    color: $tyl-icon-color;
+  }
+}
+
+.tyl-menu__popup {
+  min-width: 240px;
+}
+
+.tyl-table-row__expandable-content {
+  border-bottom: $tyl-border;
+}
+
+.tyl-table-row--expanded {
+  background-color: $material-color-indigo-50;
+}
+
+.tyl-table-head__cell-container--right {
+  justify-content: flex-end;
+}
+
+.tyl-card {
+  overflow: unset;
+}

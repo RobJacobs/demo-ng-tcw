@@ -1,0 +1,18 @@
+<tcw-toolbar class="header">
+  <h2 slot="start" class="tyl-typography--title">Home</h2>
+  <tcw-button slot="end" type="unelevated">
+    <button type="button" (click)="toggleMode()">Toggle mode</button>
+  </tcw-button>
+</tcw-toolbar>
+
+<div class="body tyl-form-grid" #body>
+  <ng-container *ngTemplateOutlet="mode === 'detail-one' ? appDetailOne : appDetailTwo"></ng-container>
+</div>
+
+<ng-template #appDetailOne>
+  <app-detail-one></app-detail-one>
+</ng-template>
+
+<ng-template #appDetailTwo>
+  <app-detail-two></app-detail-two>
+</ng-template>

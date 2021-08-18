@@ -1,0 +1,54 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+::ng-deep {
+  .searches-popup {
+    .tyl-list-item__text {
+      margin-right: 24px;
+      cursor: default;
+    }
+    *[slot='trailing'] {
+      margin-right: -16px;
+    }
+  }
+
+  .operator-popup {
+    min-width: 240px;
+    .tyl-list-item__text,
+    tcw-icon {
+      cursor: default;
+    }
+  }
+}
+
+.header {
+  tcw-button {
+    margin-left: 16px;
+  }
+  overflow: hidden;
+  [slot='start'] {
+    @include tyl-flex-container(flex, row, nowrap, center);
+    tcw-divider {
+      margin: 0 16px;
+      height: 32px;
+    }
+    span + span {
+      margin-left: 16px;
+    }
+  }
+}
+
+.body {
+  overflow: auto;
+  .form {
+    display: grid;
+    grid-template-columns: 320px;
+    padding: 24px;
+  }
+}

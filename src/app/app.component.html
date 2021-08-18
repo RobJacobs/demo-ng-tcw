@@ -1,0 +1,9 @@
+<tcw-scaffold>
+  <app-header slot="header"></app-header>
+
+  <tcw-drawer app-menu slot="body-left" [open]="appCache.menu.isOpen" [type]="appCache.menu.type" (tcw-drawer-close)="appCache.menu.isOpen = false"></tcw-drawer>
+
+  <div slot="body">
+    <router-outlet></router-outlet>
+  </div>
+</tcw-scaffold>

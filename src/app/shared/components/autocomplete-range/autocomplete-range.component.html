@@ -1,0 +1,39 @@
+<tcw-autocomplete #rangeAutocomplete [filter]="onFilter" [selectedTextBuilder]="selectedTextBuilder" [popupHeaderBuilder]="optionHeaderBuilder" multiple (tcw-autocomplete-change)="autocompleteChange()">
+  <tcw-text-field>
+    <input #filterInput type="text" [attr.id]="elementId" />
+    <label [attr.for]="elementId">{{label}}</label>
+    <tcw-icon slot="trailing" class="tyl-dropdown-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+  </tcw-text-field>
+</tcw-autocomplete>
+
+<ng-template #rangeTemplate>
+  <div class="range">
+    <div class="range__input">
+      <span class="tyl-typography--subtitle1 range__input__header">Enter a search range</span>
+      <div class="range__input__body">
+        <tcw-text-field>
+          <input type="text" placeholder="min" [attr.maxlength]="maxlength" [(ngModel)]="rangeMin" />
+        </tcw-text-field>
+        <span>to</span>
+        <tcw-text-field>
+          <input type="text" placeholder="max" [attr.maxlength]="maxlength" [(ngModel)]="rangeMax" />
+        </tcw-text-field>
+        <tcw-icon-button>
+          <button type="button" aria-label="add search range" (click)="addRangeOption()">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="add"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </div>
+      <div *ngIf="rangeMessage" class="tyl-typography--caption">{{rangeMessage}}</div>
+    </div>
+    <div class="range__option" *ngFor="let option of rangeOptions">
+      <tcw-icon-button slot="leading">
+        <button type="button" aria-label="delete search range" (click)="deleteRangeOption(option)">
+          <tcw-icon class="tyl-color-icon" aria-hidden="true" name="delete"></tcw-icon>
+        </button>
+      </tcw-icon-button>
+      <span class="tyl-list-item__text">{{option.label}}</span>
+    </div>
+    <tcw-divider></tcw-divider>
+  </div>
+</ng-template>

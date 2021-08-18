@@ -1,0 +1,49 @@
+<tcw-landing-page-layout image-url-small="assets/banner-skyline.jpg" image-url-large="assets/banner-skyline.jpg" mode="single">
+  <h2 slot="secondary-title">Welcome to</h2>
+  <h3 slot="main-title">Dashboard component</h3>
+
+  <tcw-button slot="action" type="raised">
+    <button type="button">Take action</button>
+  </tcw-button>
+
+  <div class="announcements" slot="announcements">
+    Announcing announcements
+  </div>
+
+  <div slot="left" class="body">
+    <tcw-card>
+      <img src="https://cdn.forge.tylertech.com/v1/images/spot/activities-1-spot.svg" alt="" />
+      <h3 class="tyl-typography--headline4">Task one</h3>
+      <div class="tyl-typography--body2">You can do something here.</div>
+      <div slot="footer">
+        <tcw-button type="unelevated" (click)="navigate('1')">
+          <button>One</button>
+        </tcw-button>
+      </div>
+    </tcw-card>
+    <tcw-card>
+      <img src="https://cdn.forge.tylertech.com/v1/images/spot/activities-2-spot.svg" alt="" />
+      <h3 class="tyl-typography--headline4">Task two</h3>
+      <div class="tyl-typography--body2">You can do something there.</div>
+      <div slot="footer">
+        <tcw-button type="unelevated" (click)="navigate('2')">
+          <button>Two</button>
+        </tcw-button>
+      </div>
+    </tcw-card>
+    <tcw-card>
+      <img src="https://cdn.forge.tylertech.com/v1/images/spot/target-spot.svg" alt="" />
+      <h3 class="tyl-typography--headline4">Task three</h3>
+      <div class="tyl-typography--body2">You can do something anywhere.</div>
+      <div slot="footer">
+        <tcw-button type="unelevated" (click)="navigate('3')">
+          <button>Three</button>
+        </tcw-button>
+      </div>
+    </tcw-card>
+  </div>
+
+  <div slot="footer" class="footer">
+    <span class="tyl-flex-item--right">&copy;Footer content</span>
+  </div>
+</tcw-landing-page-layout>

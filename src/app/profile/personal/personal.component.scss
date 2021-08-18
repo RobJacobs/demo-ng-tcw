@@ -1,0 +1,30 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+:host {
+  display: block;
+}
+
+.form-grid {
+  @include form-grid;
+
+  &__comment {
+    grid-column: 1 / -2;
+    textarea {
+      resize: none;
+    }
+  }
+}
+
+.friends {
+  padding-top: 16px;
+  .friend {
+    @include tyl-flex-container(flex, row, nowrap, flex-start);
+    tcw-select {
+      min-width: 320px;
+    }
+    tcw-icon-button {
+      margin-top: 4px;
+    }
+  }
+}

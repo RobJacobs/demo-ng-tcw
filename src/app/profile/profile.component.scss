@@ -1,0 +1,47 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+:host {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  overflow: hidden;
+  background-color: white;
+}
+
+.header {
+  --tyl-toolbar-border-bottom: none;
+  [slot='end'],
+  [slot='start'] {
+    @include tyl-flex-container(flex, row, nowrap, center);
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 16px;
+    }
+  }
+}
+
+tcw-tab-bar {
+  display: inline-flex;
+  border-bottom: $tyl-border;
+  tcw-tab {
+    min-width: 240px;
+    tcw-icon {
+      color: $tyl-theme-danger;
+    }
+  }
+}
+
+.body {
+  padding: 24px;
+  overflow: auto;
+}
+
+.footer {
+  [slot='end'] {
+    tcw-button {
+      margin-left: 16px;
+    }
+  }
+}

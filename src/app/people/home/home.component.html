@@ -1,0 +1,53 @@
+<tcw-toolbar class="header">
+  <h2 slot="start" class="tyl-typography--title">People</h2>
+</tcw-toolbar>
+
+<div class="body">
+  <div *ngIf="recordset?.length || isFiltered" class="table">
+    <div class="table__header" [ngClass]="{'table__header-action': selectedPeople.length}">
+      <ng-container *ngIf="!selectedPeople.length">
+        <app-filter-chips [filters]="filterCache.filters" (filter)="applyFilter(true)"></app-filter-chips>
+        <tcw-button class="tyl-flex-item--right" type="outlined">
+          <button type="button" (click)="viewCache.showFilter = !viewCache.showFilter">
+            <tcw-icon aria-hidden="true" name="filter_list" *ngIf="!filterCache.filters?.length"></tcw-icon>
+            <tcw-badge class="table__header__filter-count" *ngIf="filterCache.filters.length" theme="info-primary">{{filterCache.filters?.length}}</tcw-badge>
+            <span>Filter</span>
+          </button>
+        </tcw-button>
+        <tcw-icon-button class="table__header__columns" #tableOptionsPopup="tcwPopup" (click)="tableOptionsPopup.open()" [tcwPopup]="tableOptionsPopupTemplate" placement="bottom-left">
+          <button type="button" aria-label="Choose table columns">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="view_column"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </ng-container>
+
+      <ng-container *ngIf="selectedPeople.length">
+        <span>{{selectedPeople.length}} people selected</span>
+      </ng-container>
+    </div>
+
+    <tcw-table #peopleTable class="table__body" [data]="recordset" [columnConfigurations]="tableColumns" (tcw-table-sort)="tableSort($event.detail)" select="true" select-key="id" (tcw-table-select)="peopleSelected()" (tcw-table-select-all)="peopleSelected()"></tcw-table>
+
+    <div class="table__message" *ngIf="!recordset.length && isFiltered">
+      No people found that match applied filters.
+    </div>
+
+    <div *ngIf="recordset.length" class="table__footer">
+      <tcw-paginator class="table-paginator" [pageIndex]="filterCache.skip / filterCache.take" [pageSize]="filterCache.take" [total]="recordCount" (change)="tablePaginatorChange($event.detail)"></tcw-paginator>
+    </div>
+  </div>
+
+  <app-people-home-filter (filter)="applyFilter(false)"></app-people-home-filter>
+</div>
+
+
+<ng-template #tableOptionsPopupTemplate>
+  <tcw-list>
+    <tcw-list-item *ngFor="let column of optionalTableColumns">
+      <tcw-checkbox slot="leading">
+        <input type="checkbox" [checked]="!column.hidden" (change)="tableOptionSelected(column)" />
+      </tcw-checkbox>
+      <span class="tyl-list-item__text" style="padding-right: 16px;">{{column.header}}</span>
+    </tcw-list-item>
+  </tcw-list>
+</ng-template>

@@ -1,0 +1,39 @@
+<div class="tyl-dialog__header">
+  <span class="tyl-typography--headline5">Save search</span>
+  <tcw-icon-button class="tyl-flex-item--right">
+    <button type="button" aria-label="close" (click)="cancel()">
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="close"></tcw-icon>
+    </button>
+  </tcw-icon-button>
+</div>
+
+<div class="tyl-dialog__body">
+  <form novalidate autocomplete="off" [formGroup]="formGroup">
+    <tcw-text-field required [invalid]="isInvalid('name')">
+      <input type="text" #name id="search-save-name" formControlName="name" (blur)="formGroup.get('name').updateValueAndValidity()">
+      <label for="search-save-name" slot="label">Name</label>
+      <span *ngIf="isInvalid('name')" slot="helper-text">A name is required</span>
+    </tcw-text-field>
+    <tcw-text-field>
+      <input type="text" id="search-save-description" formControlName="description">
+      <label for="search-save-description" slot="label">Description</label>
+    </tcw-text-field>
+    <tcw-checkbox>
+      <input type="checkbox" id="search-save-default" formControlName="isDefault">
+      <label for="search-save-default">Make this your default search</label>
+    </tcw-checkbox>
+    <tcw-checkbox>
+      <input type="checkbox" id="search-save-public" formControlName="isPublic">
+      <label for="search-save-public">Make this search public</label>
+    </tcw-checkbox>
+  </form>
+</div>
+
+<div class="tyl-dialog__footer">
+  <tcw-button type="outlined" class="tyl-flex-item--right">
+    <button type="button" (click)="cancel()">Cancel</button>
+  </tcw-button>
+  <tcw-button type="unelevated">
+    <button type="button" (click)="save()" [disabled]="formGroup.invalid">Save</button>
+  </tcw-button>
+</div>

@@ -1,0 +1,43 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
+
+.header {
+  overflow: hidden;
+  [slot='start'] {
+    @include tyl-flex-container(flex, row, nowrap, center);
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 320px 320px;
+  column-gap: 24px;
+  overflow: auto;
+  padding: 24px;
+
+  &__left {
+    tcw-label-value {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__right {
+    justify-self: center;
+    img {
+      width: 254px;
+    }
+  }
+}
+
+.footer {
+  .paginator {
+    @include tyl-flex-container(flex, row, nowrap, center);
+    font-size: 0.75rem;
+  }
+}

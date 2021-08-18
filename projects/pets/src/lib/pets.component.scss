@@ -1,0 +1,10 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+}
+
+router-outlet {
+  display: none;
+}

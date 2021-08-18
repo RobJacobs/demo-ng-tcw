@@ -1,0 +1,37 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: block;
+}
+
+.range {
+  outline: none;
+
+  &__input {
+    padding-left: 16px;
+
+    &__header {
+      font-size: 14px;
+    }
+
+    &__body {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto;
+      column-gap: 16px;
+      align-items: center;
+    }
+
+    .tyl-typography--caption {
+      color: $tyl-theme-danger;
+      margin-top: -4px;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+  }
+}

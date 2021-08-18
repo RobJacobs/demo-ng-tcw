@@ -1,0 +1,33 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 320px;
+}
+
+.tyl-dialog {
+  &__header {
+    @include tyl-flex-container(flex, row, nowrap, center);
+    padding: 8px;
+    padding-left: 24px;
+    border-bottom: $tyl-border;
+    tcw-icon-button {
+      margin-left: auto;
+    }
+  }
+
+  &__body {
+    padding: 16px 24px;
+  }
+
+  &__footer {
+    padding: 8px;
+    border-top: $tyl-border;
+    tcw-button {
+      margin-left: 16px;
+    }
+  }
+}

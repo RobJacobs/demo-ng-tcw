@@ -1,0 +1,21 @@
+@import 'src/mixins';
+@import 'src/variables';
+
+:host {
+  display: block;
+}
+
+.form-grid {
+  @include form-grid;
+
+  &__name,
+  &__street {
+    grid-column: 1 / -1;
+  }
+
+  &__state-zip {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 16px;
+  }
+}

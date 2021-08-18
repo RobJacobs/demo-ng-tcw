@@ -1,0 +1,36 @@
+<tcw-toolbar class="header">
+  <div slot="start">
+    <tcw-icon-button>
+      <button (click)="navigate('back')" aria-label="go back">
+        <tcw-icon class="tyl-color-icon" aria-hidden="true" name="arrow_back"></tcw-icon>
+      </button>
+    </tcw-icon-button>
+    <h2 class="tyl-typography--title">{{person.firstName + ' ' + person.lastName}}</h2>
+  </div>
+  <div slot="end">
+    <tcw-button type="outlined">
+      <button type="button" (click)="viewWiki()" [disabled]="!person.url?.length">View wiki</button>
+    </tcw-button>
+  </div>
+</tcw-toolbar>
+
+<div class="body">
+  <div class="body__left">
+    <tcw-label-value>
+      <span slot="label">Gender</span>
+      <span slot="value">{{person.gender}}</span>
+    </tcw-label-value>
+    <tcw-label-value>
+      <span slot="label">Occupation</span>
+      <span slot="value">{{person.occupation}}</span>
+    </tcw-label-value>
+    <tcw-label-value>
+      <span slot="label">Quote</span>
+      <span slot="value">{{person.quote}}</span>
+    </tcw-label-value>
+  </div>
+
+  <div class="body__right">
+    <img [src]="imageUrl" (error)="imageError($event)" alt="" />
+  </div>
+</div>

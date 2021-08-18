@@ -1,0 +1,137 @@
+<tcw-toolbar class="header">
+  <div slot="start" class="tyl-flex-container">
+    <h2 class="tyl-typography--title">Search</h2>
+    <ng-container *ngIf="searchCache.activeSearchId">
+      <tcw-divider vertical></tcw-divider>
+      <span class="tyl-typography--subtitle1-secondary">{{searchName}}</span>
+      <span class="tyl-typography--subtitle2-secondary">{{searchDescription}}</span>
+    </ng-container>
+  </div>
+  <div slot="end">
+    <tcw-button type="outlined">
+      <button type="button" (click)="saveSearch()">
+        <span>Save search</span>
+      </button>
+    </tcw-button>
+    <tcw-button type="outlined">
+      <button type="button" #searchesPopup="tcwPopup" [tcwPopup]="searchesPopupTemplate" placement="bottom-left" aria-label="Saved searches" (click)="searchesPopup.open()">
+        <span>Saved searches</span>
+        <tcw-icon aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+      </button>
+    </tcw-button>
+    <tcw-button type="outlined">
+      <button type="button" (click)="clearSearch()">
+        <span>Clear all</span>
+      </button>
+    </tcw-button>
+    <tcw-button type="unelevated">
+      <button type="button" (click)="search()">
+        <span>Search</span>
+      </button>
+    </tcw-button>
+  </div>
+</tcw-toolbar>
+
+<ng-template #searchesPopupTemplate>
+  <tcw-list class="searches-popup" (tcw-list-item-select)="searchAction($event, 'search', $event.detail.value)">
+    <tcw-list-item>
+      <span class="tyl-list-item__text">Add new search</span>
+    </tcw-list-item>
+    <tcw-divider></tcw-divider>
+    <tcw-list-item *ngFor="let search of searchCache.searches" [value]="search.id">
+      <span class="tyl-list-item__text">{{search.name}}</span>
+      <div slot="trailing" class="tyl-flex-container--row">
+        <tcw-icon-button class="tyl-flex-item--right">
+          <button aria-label="edit" (click)="searchAction($event, 'edit', search.id)">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="edit"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+        <tcw-icon-button>
+          <button aria-label="copy" (click)="searchAction($event, 'copy', search.id)">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="content_copy"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+        <tcw-icon-button>
+          <button aria-label="delete" (click)="searchAction($event, 'delete', search.id)">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="delete"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </div>
+    </tcw-list-item>
+  </tcw-list>
+</ng-template>
+
+<div class="body">
+  <form novalidate autocomplete="off" [formGroup]="formGroup" class="form" (ngSubmit)="search()">
+    <tcw-autocomplete formControlName="name" [filter]="nameFilter" allow-unmatched="true">
+      <tcw-text-field>
+        <input type="text" id="app--search--name" />
+        <label for="app--search--name">Name</label>
+        <tcw-icon slot="trailing" class="tyl-dropdown-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+        <tcw-icon-button slot="addon-end" dense>
+          <button type="button" aria-label="search operator" #operatorPopup="tcwPopup" [tcwPopup]="operatorPopupTemplate" (click)="operatorPopupOpen($event, operatorPopup, 'name')">
+            <tcw-icon [ngClass]="hasOperator('name') ? 'tyl-color-secondary': 'tyl-color-icon'" aria-hidden="true" name="bolt"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </tcw-text-field>
+    </tcw-autocomplete>
+    <tcw-datepicker formControlName="dateOfBirth">
+      <tcw-text-field>
+        <input type="text" id="app--search--date-of-birth" />
+        <label for="app--search--date-of-birth">Date</label>
+        <tcw-icon-button slot="addon-end" dense>
+          <button type="button" aria-label="search operator" #operatorPopup="tcwPopup" [tcwPopup]="operatorPopupTemplate" (click)="operatorPopupOpen($event, operatorPopup, 'dateOfBirth')">
+            <tcw-icon [ngClass]="hasOperator('dateOfBirth') ? 'tyl-color-secondary': 'tyl-color-icon'" aria-hidden="true" name="bolt"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </tcw-text-field>
+    </tcw-datepicker>
+    <tcw-text-field>
+      <input type="text" id="app--search--address" formControlName="address" />
+      <label for="app--search--address" slot="label">Address</label>
+      <tcw-icon-button slot="addon-end" dense [ngClass]="hasOperator('address') ? 'tyl-color-secondary': 'tyl-color-icon'">
+        <button type="button" aria-label="search operator" [tcwPopup]="operatorPopupTemplate" (click)="operatorPopupOpen($event, operatorPopup, 'address')">
+          <tcw-icon [ngClass]="hasOperator('address') ? 'tyl-color-secondary': 'tyl-color-icon'" aria-hidden="true" name="bolt"></tcw-icon>
+        </button>
+      </tcw-icon-button>
+    </tcw-text-field>
+    <app-autocomplete-range [optionFilter]="optionFilter('facet')" formControlName="facet" label="Facet"></app-autocomplete-range>
+  </form>
+</div>
+
+<ng-template #operatorPopupTemplate>
+  <tcw-list class="operator-popup" (tcw-list-item-select)="operatorSelected($event.detail.value)">
+    <tcw-list-item value="1" [selected]="operatorPopupFilter.operator === 1">
+      <span class="tyl-list-item__text">Not equal</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 1"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="2" [selected]="operatorPopupFilter.operator === 2">
+      <span class="tyl-list-item__text">Greater than</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 2"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="3" [selected]="operatorPopupFilter.operator === 3">
+      <span class="tyl-list-item__text">Less than</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 3"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="4" [selected]="operatorPopupFilter.operator === 4">
+      <span class="tyl-list-item__text">Greater than equal to</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 4"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="5" [selected]="operatorPopupFilter.operator === 5">
+      <span class="tyl-list-item__text">Less than equal to</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 5"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="7" [selected]="operatorPopupFilter.operator === 7">
+      <span class="tyl-list-item__text">Contains</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 7"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="8" [selected]="operatorPopupFilter.operator === 8">
+      <span class="tyl-list-item__text">Not contains</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 8"></tcw-icon>
+    </tcw-list-item>
+    <tcw-list-item value="9" [selected]="operatorPopupFilter.operator === 9">
+      <span class="tyl-list-item__text">Empty</span>
+      <tcw-icon class="tyl-color-icon" aria-hidden="true" name="check" slot="trailing" *ngIf="operatorPopupFilter.operator === 9"></tcw-icon>
+    </tcw-list-item>
+  </tcw-list>
+</ng-template>

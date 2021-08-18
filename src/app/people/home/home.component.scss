@@ -1,0 +1,41 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+
+  ::ng-deep {
+    .tyl-table-cell__image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.header {
+  overflow: hidden;
+}
+
+.body {
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  app-people-home-filter {
+    grid-column: 2;
+  }
+}
+
+.table {
+  @include table-header-footer();
+  &__header {
+    &__filter-count {
+      margin-right: 8px;
+    }
+    &__columns {
+      margin-left: 8px;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+.header {
+  overflow: hidden;
+  [slot='start'] {
+    @include tyl-flex-container(flex, row, nowrap, center);
+    tcw-icon-button {
+      margin-left: -8px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.body {
+  overflow: auto;
+  padding: 24px;
+}

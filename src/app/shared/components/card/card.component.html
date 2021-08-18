@@ -1,0 +1,11 @@
+<tcw-card has-padding="false" [outlined]="outlined">
+  <tcw-toolbar *ngIf="hasHeader" class="header" slot="header">
+    <ng-content select="[app-card-header]"></ng-content>
+  </tcw-toolbar>
+  <div class="body">
+    <ng-content></ng-content>
+  </div>
+  <tcw-toolbar *ngIf="hasFooter" class="footer" slot="footer" inverted="true">
+    <ng-content #footerContent select="[app-card-footer]"></ng-content>
+  </tcw-toolbar>
+</tcw-card>

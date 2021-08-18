@@ -1,0 +1,66 @@
+<ng-container [formGroup]="formGroup">
+  {{formGroup.value | json}}
+  <div class="form-grid">
+    <tcw-text-field class="form-grid__field" required [invalid]="isInvalid('firstName')">
+      <input type="text" id="personal-form--first-name" formControlName="firstName" appAutoFocus />
+      <label for="personal-form--first-name" slot="label">First Name</label>
+      <span slot="helper-text" *ngIf="isInvalid('firstName')">First name is required</span>
+    </tcw-text-field>
+
+    <tcw-text-field class="form-grid__field" required [invalid]="isInvalid('lastName')">
+      <input type="text" id="personal-form--first-name" formControlName="lastName" />
+      <label for="personal-form--last-name" slot="label">Last Name</label>
+      <span slot="helper-text" *ngIf="isInvalid('lastName')">Last name is required</span>
+    </tcw-text-field>
+
+    <tcw-select class="form-grid__field" label="gender" formControlName="gender" [options]="genderOptions"></tcw-select>
+
+    <div class="form-grid__row-break"></div>
+
+    <tcw-text-field class="form-grid__field" required [invalid]="isInvalid('email')">
+      <input type="text" id="personal-form--email" formControlName="email" />
+      <label for="personal-form--email" slot="label">Email</label>
+      <span slot="helper-text" *ngIf="isInvalid('email')">Email is required</span>
+    </tcw-text-field>
+
+    <tcw-text-field class="form-grid__field" required [invalid]="isInvalid('phone')">
+      <input type="text" id="personal-form--phone" formControlName="phone" />
+      <label for="personal-form--phone" slot="label">Phone</label>
+      <span slot="helper-text" *ngIf="isInvalid('phone')">Phone number is required</span>
+    </tcw-text-field>
+
+    <tcw-datepicker class="form-grid__field">
+      <tcw-text-field>
+        <input type="text" id="personal-form--dob" formControlName="dateOfBirth" />
+        <label for="personal-form--dob">Date of birth</label>
+      </tcw-text-field>
+    </tcw-datepicker>
+
+    <div class="form-grid__row-break"></div>
+
+    <tcw-text-field class="form-grid__field form-grid__comment">
+      <textarea type="text" id="personal-form--comment" formControlName="comment" rows="4"></textarea>
+      <label for="personal-form--comment">Comment</label>
+    </tcw-text-field>
+  </div>
+
+  <tcw-divider></tcw-divider>
+
+  <div class="friends">
+    <ng-container formArrayName="friends">
+      <div class="friend" *ngFor="let friend of formGroup.get('friends')?.controls; let i = index">
+        <tcw-select [options]="friendOptions" [formControlName]="i" label="Friend" [invalid]="isInvalid(friend)">
+          <span slot="helper-text" *ngIf="isInvalid(friend)">A friend is required</span>
+        </tcw-select>
+        <tcw-icon-button>
+          <button type="button" aria-label="delete" (click)="deleteFriend(i)">
+            <tcw-icon class="tyl-color-icon" aria-hidden="true" name="delete"></tcw-icon>
+          </button>
+        </tcw-icon-button>
+      </div>
+      <tcw-button type="raised">
+        <button type="button" (click)="addFriend()">Add friend</button>
+      </tcw-button>
+    </ng-container>
+  </div>
+</ng-container>

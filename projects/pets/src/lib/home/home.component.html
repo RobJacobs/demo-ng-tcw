@@ -1,0 +1,19 @@
+<tcw-toolbar class="header">
+  <h2 slot="start" class="tyl-typography--title">Pets</h2>
+</tcw-toolbar>
+
+<div class="body">
+  <tcw-button class="tyl-flex-item--right">
+    <button type="button" (click)="navigate('detail')">
+      Detail
+    </button>
+  </tcw-button>
+  <tcw-button>
+    <button type="button" (click)="toggleNav()">
+      Toggle nav
+    </button>
+  </tcw-button>
+  <p>
+    {{moduleConfig | json}}
+  </p>
+</div>

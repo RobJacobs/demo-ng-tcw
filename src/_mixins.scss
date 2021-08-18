@@ -1,0 +1,51 @@
+@import '@tylertech/tyler-components-web/styles/theme/mixins';
+@import '@tylertech/tyler-components-web/styles/typography/mixins';
+@import '@tylertech/tyler-components-web/styles/utils/mixins-flex';
+
+@mixin table-header-footer {
+  &__header {
+    margin: 8px 16px 0 16px;
+    padding: 4px 0;
+    @include tyl-flex-container(flex, row, nowrap, center);
+    height: 48px;
+    tcw-icon-button {
+      button {
+        height: 36px;
+        width: 36px;
+      }
+    }
+
+    &-action {
+      border-radius: 4px;
+      padding: 8px;
+      background-color: $material-color-indigo-50;
+    }
+  }
+  &__body {
+    margin: 8px 16px 16px 16px;
+  }
+  &__message {
+    padding: 16px;
+  }
+  &__footer {
+    padding: 8px 16px;
+    @include tyl-flex-container(flex, row, nowrap, center);
+    tcw-paginator {
+      margin-left: auto;
+    }
+  }
+}
+
+@mixin form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 320px);
+  column-gap: 16px;
+
+  &__field {
+    min-height: 72px;
+  }
+
+  &__row-break {
+    grid-column: 1 / -1;
+  }
+}
