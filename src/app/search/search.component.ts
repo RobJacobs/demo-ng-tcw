@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 // TODO import service
 import { AppDataService } from '../app-data.service';
 import { IFilter } from '../shared/interfaces/filter.interface';
+import { ISearch } from '../shared/interfaces/search.interface';
 import { SearchSaveComponent } from './save/search-save.component';
 
 @Component({
@@ -23,16 +24,9 @@ export class SearchComponent implements OnInit {
   public searchName: string;
   public searchDescription: string;
   // TODO consider moving to a cache service
-  public searchCache = {
+  public searchCache: { activeSearchId?: number; searches: ISearch[] } = {
     activeSearchId: null,
-    searches: [] as {
-      id: number;
-      name: string;
-      description: string;
-      isDefault: boolean;
-      isPublic: boolean;
-      filters: IFilter[];
-    }[]
+    searches: []
   };
   // TODO consider moving to a cache service
   public formGroup = new FormGroup({
@@ -56,7 +50,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private dialogService: DialogService, private toastService: ToastService, private dataService: AppDataService) {
     this.dataService.getSearches(this.storageKey).subscribe((result) => {
-      this.searchCache.searches = result;
+      this.searchCache.searches = result || [];
     });
     this.dataService.getPeople().subscribe((result) => {
       this.nameOptions = result.data.map((p) => ({ label: `${p.firstName} ${p.lastName}`, value: p.id }));
