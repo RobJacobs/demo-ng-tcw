@@ -14,11 +14,16 @@
             <span>Filter</span>
           </button>
         </tcw-button>
-        <tcw-icon-button class="table__header__columns" #tableOptionsPopup="tcwPopup" (click)="tableOptionsPopup.open()" [tcwPopup]="tableOptionsPopupTemplate" placement="bottom-left">
+        <tcw-icon-button id="home--column-select" class="table__header__columns">
           <button type="button" aria-label="Choose table columns">
             <tcw-icon class="tyl-color-icon" aria-hidden="true" name="view_column"></tcw-icon>
           </button>
         </tcw-icon-button>
+        <tcw-select-dropdown target="#home--column-select" multiple [value]="selectedTableColumns" (change)="tableOptionSelected($event.detail)">
+          <tcw-option *ngFor="let column of optionalTableColumns" [value]="column.property">
+            {{column.header}}
+          </tcw-option>
+        </tcw-select-dropdown>
       </ng-container>
 
       <ng-container *ngIf="selectedPeople.length">
@@ -39,15 +44,3 @@
 
   <app-people-home-filter (filter)="applyFilter(false)"></app-people-home-filter>
 </div>
-
-
-<ng-template #tableOptionsPopupTemplate>
-  <tcw-list>
-    <tcw-list-item *ngFor="let column of optionalTableColumns">
-      <tcw-checkbox slot="leading">
-        <input type="checkbox" [checked]="!column.hidden" (change)="tableOptionSelected(column)" />
-      </tcw-checkbox>
-      <span class="tyl-list-item__text" style="padding-right: 16px;">{{column.header}}</span>
-    </tcw-list-item>
-  </tcw-list>
-</ng-template>

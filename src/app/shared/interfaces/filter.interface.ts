@@ -24,8 +24,8 @@ export interface IFilter {
 }
 
 export interface IFilterParameter {
-  sort: { property: string; direction: SortDirection };
-  filters: IFilter[];
-  skip: number;
-  take: number;
+  sort?: { property: string; direction: SortDirection };
+  filters?: IFilter[];
+  skip?: number;
+  take?: number;
 }

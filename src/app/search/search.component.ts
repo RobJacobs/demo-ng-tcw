@@ -3,9 +3,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { isDefined } from '@tyler-components-web/core';
-import { IOption } from '@tylertech/tyler-components-web';
+import { AutocompleteFilterCallback, IOption, SortDirection } from '@tylertech/tyler-components-web';
 import { PopupDirective, DialogService, ToastService } from '@tylertech/tyler-components-web-angular';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 // TODO import service
 import { AppDataService } from '../app-data.service';
@@ -35,7 +36,7 @@ export class SearchComponent implements OnInit {
     address: new FormControl(),
     facet: new FormControl()
   });
-  public nameOptions: { label: string; value: number }[] = [];
+  // public nameOptions: { label: string; value: number }[] = [];
   public facetOptions: { label: string; value: number }[] = [];
   public filters: IFilter[] = [
     { property: 'name', label: 'Name' },
@@ -51,9 +52,6 @@ export class SearchComponent implements OnInit {
   constructor(private dialogService: DialogService, private toastService: ToastService, private dataService: AppDataService) {
     this.dataService.getSearches(this.storageKey).subscribe((result) => {
       this.searchCache.searches = result || [];
-    });
-    this.dataService.getPeople().subscribe((result) => {
-      this.nameOptions = result.data.map((p) => ({ label: `${p.firstName} ${p.lastName}`, value: p.id }));
     });
     for (let index = 0; index < 20; index++) {
       this.facetOptions.push({ value: index, label: `${name} Option ${index}` });
@@ -172,7 +170,12 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  public nameFilter = (filter: string) => this.nameOptions.filter((fo) => fo.label.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+  public nameFilter: AutocompleteFilterCallback = (filter: string) => this.dataService.getPeople().pipe(
+    map(r => r.data
+      .filter(p => p.firstName.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) || p.lastName.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+      .map(p => ({ label: `${p.firstName} ${p.lastName}`, value: p.id }))
+    )
+  ).toPromise();
 
   public optionFilter(property: string): (filter: string) => Observable<IOption[]> {
     return (filter: string): Observable<IOption[]> =>

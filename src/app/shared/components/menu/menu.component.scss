@@ -18,13 +18,13 @@
 }
 
 .menu {
+  &--mini {
+    --tyl-list-item-leading-margin-right: 0;
+  }
+
   &__item {
     &--nested {
       margin-left: 16px;
     }
-  }
-
-  tcw-menu {
-    width: 56px;
   }
 }

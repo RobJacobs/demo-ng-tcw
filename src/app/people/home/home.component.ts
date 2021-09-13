@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { isArray } from '@tyler-components-web/core';
-import { CellAlign, SelectComponentDelegate, TableComponent, TextFieldComponentDelegate } from '@tylertech/tyler-components-web';
+import { CellAlign, TableComponent, TextFieldComponentDelegate } from '@tylertech/tyler-components-web';
 import { TableUtils } from 'src/app/shared/table/utils';
 import { Utils } from 'src/utils';
 import { AppDataService } from '../../app-data.service';
@@ -29,6 +29,7 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
     { property: 'occupation', header: 'Occupation', hidden: true }
   ];
   public selectedPeople: IPerson[] = [];
+  public selectedTableColumns = this.optionalTableColumns.filter(c => !c.hidden).map(c => c.property);
 
   constructor(private router: Router, private appDataService: AppDataService, public moduleCache: PeopleCacheService) {
     super();
@@ -129,8 +130,16 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
     }
   }
 
-  public tableOptionSelected(column: { property: string; header: string; hidden: boolean }): void {
-    column.hidden = !column.hidden;
+  public tableOptionSelected(columns: string[]) {
+    console.log(columns);
+    this.tableColumns = this.tableColumns.map(c => {
+      if (columns.includes(c.property)) {
+        c.hidden = false;
+      } else {
+        c.hidden = true;
+      }
+      return c;
+    });
     localStorage.setItem(
       this.moduleCache.homeView.storageKey,
       JSON.stringify(
@@ -140,12 +149,6 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
         }))
       )
     );
-
-    const tableColumn = this.tableColumns.find((c) => c.property === column.property);
-    if (tableColumn) {
-      tableColumn.hidden = column.hidden;
-      this.tableColumns = new Array(...this.tableColumns);
-    }
   }
 
   public applyFilter(reloadFilter: boolean) {
