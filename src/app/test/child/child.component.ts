@@ -11,11 +11,11 @@ import { TestCacheService } from '../test-cache.service';
 export class ChildComponent {
   @ViewChild('body') bodyElementRef: ElementRef;
 
-  constructor(private router: Router, public dataService: AppDataService, public moduleCache: TestCacheService) {}
+  constructor(private router: Router, public dataService: AppDataService, public moduleCache: TestCacheService) { }
 
-  public go() {}
+  public go() { }
 
   public navigate(route: string) {
-    this.router.navigate(['test/home']);
+    this.router.navigate([route]);
   }
 }

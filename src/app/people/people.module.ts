@@ -12,6 +12,7 @@ import { DetailComponent } from './detail/detail.component';
 import { FilterComponent } from './home/filter/filter.component';
 import { FilterChipsModule } from '../shared/components/filter-chips/filter-chips.module';
 import { AutoFocusModule } from '../shared/directives/auto-focus/auto-focus.module';
+import { TableDetailComponent } from './home/table-detail/table-detail.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes), SharedFormsModule, AutocompleteRangeModule, FilterChipsModule, AutoFocusModule],
   exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [PeopleComponent, HomeComponent, DetailComponent, FilterComponent],
+  declarations: [PeopleComponent, HomeComponent, DetailComponent, FilterComponent, TableDetailComponent],
   providers: [PeopleCacheService]
 })
 export class PeopleModule {}

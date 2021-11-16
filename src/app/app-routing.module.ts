@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'pets', loadChildren: () => import('./pets/pets-wrapper.module').then((m) => m.PetsWrapperModule) },
   { path: 'search', loadChildren: () => import('./search/search.module').then((m) => m.SearchModule) },
   { path: 'query-builder', loadChildren: () => import('./query-builder/query-builder.module').then((m) => m.QueryBuilderModule) },
+  { path: 'map-view', loadChildren: () => import('./map-view/map-view.module').then((m) => m.MapViewModule) },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
@@ -16,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

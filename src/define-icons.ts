@@ -22,7 +22,12 @@ import {
   tylIconViewColumn,
   tylIconChevronLeft,
   tylIconChevronRight,
-  tylIconClose
+  tylIconClose,
+  tylIconMap,
+  tylIcon360,
+  tylIconExpandLess,
+  tylIconExpandMore,
+  tylIconKeyboardArrowRight
 } from '@tylertech/tyler-icons/standard';
 
 const standardIcons = [
@@ -48,7 +53,12 @@ const standardIcons = [
   tylIconViewColumn,
   tylIconChevronLeft,
   tylIconChevronRight,
-  tylIconClose
+  tylIconClose,
+  tylIconMap,
+  tylIcon360,
+  tylIconExpandLess,
+  tylIconExpandMore,
+  tylIconKeyboardArrowRight
 ];
 
 export const defineIcons = () => {

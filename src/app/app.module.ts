@@ -24,4 +24,4 @@ import { AppPetsConfigService } from './app-pets-config.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

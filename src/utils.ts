@@ -27,6 +27,21 @@ export class Utils {
     });
   }
 
+  public static groupData(data: any[], property: string): any[] {
+    if (!isArray(data) || !data.length || !property?.length) {
+      return data;
+    }
+
+    return data.reduce((previousValue, currentValue) => {
+      const key = currentValue[property];
+      if (!previousValue[key]) {
+        previousValue[key] = [];
+      }
+      previousValue[key].push(currentValue);
+      return previousValue;
+    }, {});
+  }
+
   public static filterData(data: any[], filters: { key: string; value: string; strict?: boolean }[]): any[] {
     if (!isArray(data) || !data.length || !isArray(filters) || !filters.length) {
       return data;
@@ -155,8 +170,8 @@ export class Utils {
     );
   }
 
-  public static formatDate(value: Date): string {
-    return formatDate(value, 'MM/dd/yyyy', '', navigator.language);
+  public static formatDate(value: Date, format = 'MM/dd/yyyy'): string {
+    return formatDate(value, format, navigator.language);
   }
 
   public static formatNumber(value: number, format = '1.2-2'): string {

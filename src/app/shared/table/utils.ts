@@ -1,11 +1,11 @@
-import { addClass, isDefined } from '@tyler-components-web/core';
+import { isDefined } from '@tyler-components-web/core';
 import { TableComponent, IMenuOption, MenuComponent } from '@tylertech/tyler-components-web';
-import { ViewContainerRef, ComponentRef, EmbeddedViewRef, ComponentFactoryResolver, Type } from '@angular/core';
+import { ViewContainerRef, ComponentRef, EmbeddedViewRef, ComponentFactoryResolver, Type, Injector } from '@angular/core';
 
 export class TableUtils {
   public static createLinkButton(label: string | number, clickHandler: (event) => void): HTMLButtonElement {
     const linkElement = document.createElement('button');
-    addClass(['tyl-hyperlink'], linkElement);
+    linkElement.classList.add('tyl-hyperlink');
     linkElement.innerText = label.toString();
     linkElement.type = 'button';
     linkElement.style.minWidth = '36px';
@@ -22,7 +22,7 @@ export class TableUtils {
 
     const tcwIconElement = document.createElement('tcw-icon');
     tcwIconElement.setAttribute('name', icon);
-    addClass(['tyl-color-icon'], tcwIconElement);
+    tcwIconElement.classList.add('tyl-color-icon');
 
     buttonElement.appendChild(tcwIconElement);
     tcwIconButtonElement.appendChild(buttonElement);
@@ -48,7 +48,7 @@ export class TableUtils {
 
     const tcwIconElement = document.createElement('tcw-icon');
     tcwIconElement.setAttribute('name', icon);
-    addClass(['tyl-color-icon'], tcwIconElement);
+    tcwIconElement.classList.add('tyl-color-icon');
 
     buttonElement.appendChild(tcwIconElement);
     tcwIconButtonElement.appendChild(buttonElement);
@@ -60,18 +60,19 @@ export class TableUtils {
   public static createExpanderRow<T>(
     rowIndex: number,
     tableElement: TableComponent,
-    viewContainerRef: ViewContainerRef,
+    injector: Injector,
     component: Type<T>,
-    componentFactoryResolver: ComponentFactoryResolver,
     title?: string,
-    data?: any
+    data?: any,
+    callback?: (value?: any) => any
   ): HTMLElement {
     let componentRef: ComponentRef<any>;
+
     const expanderElement = TableUtils.createIconButton(
       'expand_more',
       () => {
         const isExpanded = tableElement.isRowExpanded(rowIndex);
-        expanderElement.querySelector('button').innerText = isExpanded ? 'expand_more' : 'expand_less';
+        expanderElement.querySelector('tcw-icon').setAttribute('name', isExpanded ? 'expand_more' : 'expand_less');
         if (isExpanded) {
           tableElement.collapseRow(rowIndex).then(() => {
             componentRef.destroy();
@@ -79,10 +80,16 @@ export class TableUtils {
           });
         } else {
           tableElement.expandRow(rowIndex, () => {
+            const viewContainerRef = injector.get(ViewContainerRef);
+            const componentFactoryResolver = injector.get(ComponentFactoryResolver);
             componentRef = viewContainerRef.createComponent(componentFactoryResolver.resolveComponentFactory(component));
+
             componentRef.instance.rowIndex = rowIndex;
             if (isDefined(data)) {
               componentRef.instance.data = data;
+            }
+            if (isDefined(callback)) {
+              componentRef.instance.callback = callback;
             }
             const rootNode = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
             rootNode.classList.add('tyl-table-expandable-row');

@@ -3,7 +3,7 @@
 </tcw-toolbar>
 
 <div class="body">
-  <div *ngIf="recordset?.length || isFiltered" class="table">
+  <div [ngClass]="{'tyl--hidden': !recordset?.length && !isFiltered}" class="table">
     <div class="table__header" [ngClass]="{'table__header-action': selectedPeople.length}">
       <ng-container *ngIf="!selectedPeople.length">
         <app-filter-chips [filters]="filterCache.filters" (filter)="applyFilter(true)"></app-filter-chips>
@@ -33,11 +33,11 @@
 
     <tcw-table #peopleTable class="table__body" [data]="recordset" [columnConfigurations]="tableColumns" (tcw-table-sort)="tableSort($event.detail)" select="true" select-key="id" (tcw-table-select)="peopleSelected()" (tcw-table-select-all)="peopleSelected()"></tcw-table>
 
-    <div class="table__message" *ngIf="!recordset.length && isFiltered">
+    <div class="table__message" *ngIf="!recordset?.length && isFiltered">
       No people found that match applied filters.
     </div>
 
-    <div *ngIf="recordset.length" class="table__footer">
+    <div *ngIf="recordset?.length" class="table__footer">
       <tcw-paginator class="table-paginator" [pageIndex]="filterCache.skip / filterCache.take" [pageSize]="filterCache.take" [total]="recordCount" (change)="tablePaginatorChange($event.detail)"></tcw-paginator>
     </div>
   </div>

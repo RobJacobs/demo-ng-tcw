@@ -37,7 +37,8 @@ export class AppCacheService implements IAppCacheService {
         ]
       },
       { label: 'Search', value: 'search', icon: 'search' },
-      { label: 'Query Builder', value: 'query-builder', icon: 'category' }
+      { label: 'Query Builder', value: 'query-builder', icon: 'category' },
+      { label: 'Map View', value: 'map-view', icon: 'map' }
     ]
   };
   public activeRoute: string[] = [];

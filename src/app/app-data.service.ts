@@ -13,7 +13,7 @@ import { Utils } from 'src/utils';
   providedIn: 'root'
 })
 export class AppDataService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public getProfile(): Observable<IProfile> {
     return this.httpClient.get<IProfile>('data/profile/profile.json');

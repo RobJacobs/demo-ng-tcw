@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { isArray } from '@tyler-components-web/core';
 import { CellAlign, TableComponent, TextFieldComponentDelegate } from '@tylertech/tyler-components-web';
@@ -9,6 +9,7 @@ import { IPerson } from '../../models/IPerson';
 import { BaseTableComponent } from '../../shared/table/base-table.component';
 import { PeopleCacheService } from '../people-cache.service';
 import { FilterComponent } from './filter/filter.component';
+import { TableDetailComponent } from './table-detail/table-detail.component';
 
 @Component({
   selector: 'app-people-home',
@@ -16,7 +17,7 @@ import { FilterComponent } from './filter/filter.component';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends BaseTableComponent implements OnInit, OnDestroy {
-  @ViewChild('peopleTable') peopleTable: ElementRef;
+  @ViewChild('peopleTable', { static: true }) peopleTable: ElementRef;
   @ViewChild(FilterComponent) peopleFilter: FilterComponent;
   public recordset: Array<IPerson>;
   public filterCache = this.moduleCache.homeView.filter;
@@ -31,7 +32,7 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
   public selectedPeople: IPerson[] = [];
   public selectedTableColumns = this.optionalTableColumns.filter(c => !c.hidden).map(c => c.property);
 
-  constructor(private router: Router, private appDataService: AppDataService, public moduleCache: PeopleCacheService) {
+  constructor(private router: Router, private appDataService: AppDataService, public moduleCache: PeopleCacheService, private injector: Injector) {
     super();
 
     const storedTableColumns = JSON.parse(localStorage.getItem(this.moduleCache.homeView.storageKey)) as Array<{
@@ -53,10 +54,9 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
         width: 48,
         align: CellAlign.Center,
         hidden: this.optionalTableColumns.find((c) => c.property === 'image').hidden,
-        template: (rowIndex: number, cellElement: HTMLElement) => {
-          const record = this.recordset[rowIndex];
+        template: (rowIndex: number, cellElement: HTMLElement, data: any) => {
           const imgElement = document.createElement('img') as HTMLImageElement;
-          imgElement.src = `data/people/${Utils.formatNumber(record.id, '2.0-0')}-small.png`;
+          imgElement.src = `data/people/${Utils.formatNumber(data.id, '2.0-0')}-small.png`;
           imgElement.classList.add('tyl-table-cell__image');
           return imgElement;
         }
@@ -95,17 +95,29 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
         hidden: this.optionalTableColumns.find((c) => c.property === 'occupation').hidden
       },
       {
-        width: 48,
+        width: 96,
         align: CellAlign.Right,
-        template: (rowIndex: number, cellElement: HTMLElement) => {
-          const record = this.recordset[rowIndex];
-          return TableUtils.createIconButton(
+        template: (rowIndex: number, cellElement: HTMLElement, data: any) => {
+          cellElement.appendChild(
+            TableUtils.createExpanderRow(
+              rowIndex,
+              this.peopleTable.nativeElement,
+              this.injector,
+              TableDetailComponent,
+              'Expand table row',
+              data
+            )
+          );
+
+          cellElement.appendChild(TableUtils.createIconButton(
             'keyboard_arrow_right',
             (event: Event) => {
-              this.router.navigate([`people/detail/${record.id}`]);
+              this.router.navigate([`people/detail/${data.id}`]);
             },
             'View person details'
-          );
+          ));
+
+          return '';
         }
       }
     ];
