@@ -27,12 +27,19 @@ export class AppDataService {
           if (filter.filters?.length) {
             r = Utils.filterData(
               r,
-              filter.filters.map((f) => ({ key: f.property, value: f.value, strict: f.property === 'gender' }))
+              filter.filters.map((f) => ({ key: f.property, value: f.value, strict: f.property === 'gender' || f.property === 'id' }))
             );
           }
+
+          if (filter.sort) {
+            r = Utils.sortData(r, filter.sort.property, 'string', filter.sort.direction);
+          }
+
+          if (isDefined(filter.skip) && isDefined(filter.take)) {
+            r = r.slice(filter.skip || 0, filter.skip || 0 + filter.take);
+          }
+
           count = r.length;
-          r = Utils.sortData(r, filter.sort.property, 'string', filter.sort.direction);
-          r = r.slice(filter.skip, filter.skip + filter.take);
         }
         return { count, data: r };
       })

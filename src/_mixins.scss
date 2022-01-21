@@ -1,8 +1,9 @@
 @import '@tylertech/tyler-components-web/styles/theme/mixins';
 @import '@tylertech/tyler-components-web/styles/typography/mixins';
 @import '@tylertech/tyler-components-web/styles/utils/mixins-flex';
+@import '@material/card/mixins';
 
-@mixin table-header-footer {
+@mixin app--table-header-footer {
   &__header {
     margin: 8px 16px 0 16px;
     padding: 4px 0;
@@ -36,7 +37,7 @@
   }
 }
 
-@mixin form-grid {
+@mixin app--form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 320px);
   column-gap: 16px;
@@ -48,4 +49,54 @@
   &__row-break {
     grid-column: 1 / -1;
   }
+}
+
+@mixin app--tyl-dialog {
+  :host {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .tyl-dialog {
+    &__header {
+      @include tyl-flex-container(flex, row, nowrap, center);
+      padding: 8px;
+      padding-left: 24px;
+      border-bottom: $tyl-border;
+      .tyl-typography--headline5 {
+        margin-right: 16px;
+      }
+      tcw-icon-button {
+        &:first-of-type {
+          margin-left: auto;
+        }
+      }
+    }
+
+    &__body {
+      padding: 16px 24px;
+    }
+
+    &__footer {
+      padding: 8px 16px;
+      border-top: $tyl-border;
+      tcw-button {
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin app--container-raised {
+  @include mdc-card-fill-color(surface);
+  @include mdc-card-shape-radius(medium);
+  @include tyl-elevation(1);
+}
+
+@mixin app--container-outlined {
+  @include mdc-card-fill-color(surface);
+  @include mdc-card-shape-radius(medium);
+  @include mdc-card-outline($mdc-card-outline-color);
+  @include mdc-theme-prop(border-color, border-color);
 }

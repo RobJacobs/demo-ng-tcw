@@ -98,7 +98,9 @@ export class Utils {
           case '<':
             return this.comparator(value, f.value, 'string') < 0;
           default:
-            return value.indexOf(f.value) > -1;
+            console.log(value.localeCompare(f.value, undefined, { sensitivity: 'accent' }));
+            value.localeCompare(f.value, undefined, { sensitivity: 'accent' });
+          // return value.indexOf(f.value) > -1;
         }
       });
 

@@ -6,7 +6,7 @@
 }
 
 .form-grid {
-  @include form-grid;
+  @include app--form-grid;
 
   &__comment {
     grid-column: 1 / -2;

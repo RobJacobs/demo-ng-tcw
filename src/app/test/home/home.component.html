@@ -5,8 +5,12 @@
   </tcw-button>
 </tcw-toolbar>
 
-<div class="body tyl-form-grid" #body>
+<div class="body">
   <ng-container *ngTemplateOutlet="mode === 'detail-one' ? appDetailOne : appDetailTwo"></ng-container>
+
+  <ng-template #variableTemplate [ngTemplateOutlet]="variableTemplate" [ngTemplateOutletContext]="{ $implicit: { cats: 1, dogs: 2 } }" let-variable>
+    <p>{{variable | json}}</p>
+  </ng-template>
 </div>
 
 <ng-template #appDetailOne>

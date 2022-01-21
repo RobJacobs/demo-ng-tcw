@@ -29,7 +29,7 @@
 }
 
 .table {
-  @include table-header-footer();
+  @include app--table-header-footer();
   &__header {
     &__filter-count {
       margin-right: 8px;

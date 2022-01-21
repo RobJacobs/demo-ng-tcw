@@ -1,0 +1,43 @@
+<form [formGroup]="formGroup" novalidate autocomplete="off" class="form-grid">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete01" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete01" type="text" />
+      <label for="autocomplete01">Autocomplete01 - single primitive</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete02" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete01" type="text" />
+      <label for="autocomplete01">Autocomplete02 - single object</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <tcw-autocomplete [filter]="multipleSelectFilter" formControlName="autocomplete03" multiple class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete01" type="text" />
+      <label for="autocomplete01">Autocomplete03 - multiple select</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete04" [optionBuilder]="optionBuilder" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete04" type="text" />
+      <label for="autocomplete04">Autocomplete04 - option builder</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete05" [selectedTextBuilder]="selectedTextBuilder" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete05" type="text" />
+      <label for="autocomplete05">Autocomplete05 - selected text builder</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <p class="form-grid__row-break">{{formGroup.value | json}}</p>
+</form>

@@ -6,7 +6,7 @@
 }
 
 .form-grid {
-  @include form-grid;
+  @include app--form-grid;
 
   &__name,
   &__street {
