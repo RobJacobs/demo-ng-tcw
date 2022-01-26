@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AutocompleteFilterCallback, AutocompleteOptionBuilder, AutocompleteSelectedTextBuilder, IOption } from '@tylertech/tyler-components-web';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { ExamplesService } from '../examples.service';
   templateUrl: './autocomplete-example.component.html',
   styleUrls: ['./autocomplete-example.component.scss']
 })
-export class AutocompleteExampleComponent implements OnInit {
+export class AutocompleteExampleComponent {
   public formGroup = new FormGroup({
     autocomplete01: new FormControl(1),
     autocomplete02: new FormControl({ value: { id: 2, code: '002', description: 'Item 002' }, label: 'Item 002' }),
@@ -17,6 +17,8 @@ export class AutocompleteExampleComponent implements OnInit {
     autocomplete04: new FormControl(),
     autocomplete05: new FormControl()
   });
+  public autocomplete06 = 6;
+  public autocomplete07 = 7;
 
   public constructor(public moduleService: ExamplesService) { }
 
@@ -63,7 +65,9 @@ export class AutocompleteExampleComponent implements OnInit {
     }
   };
 
-  ngOnInit(): void {
+  public autocompleteChange(event: CustomEvent) {
+    console.log(event);
+    this.autocomplete07 = event.detail;
   }
 
 }

@@ -13,3 +13,14 @@
 
   <p class="form-grid__row-break">{{formGroup.value | json}}</p>
 </form>
+
+<tcw-divider></tcw-divider>
+
+<div class="form-grid">
+  <tcw-select label="Select06 - ngModel binding" [options]="options" [(ngModel)]="select06" class="form-grid__field">
+    <span slot="helper-text">selected value: {{select06}}</span>
+  </tcw-select>
+  <tcw-select label="Select07 - value binding" [options]="options" [value]="select07" (change)="selectChange($event)" class="form-grid__field">
+    <span slot="helper-text">selected value: {{select07}}</span>
+  </tcw-select>
+</div>

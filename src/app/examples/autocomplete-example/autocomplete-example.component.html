@@ -41,3 +41,25 @@
 
   <p class="form-grid__row-break">{{formGroup.value | json}}</p>
 </form>
+
+<tcw-divider></tcw-divider>
+
+<div class="form-grid">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [(ngModel)]="autocomplete06" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete06" type="text" />
+      <label for="autocomplete06">Autocomplete06 - ngModel binding</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+      <span slot="helper-text">selected value: {{autocomplete06}}</span>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [value]="autocomplete07" (tcw-autocomplete-change)="autocompleteChange($event)" class="form-grid__field">
+    <tcw-text-field>
+      <input id="autocomplete07" type="text" />
+      <label for="autocomplete07">Autocomplete07 - value binding</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+      <span slot="helper-text">selected value: {{autocomplete07}}</span>
+    </tcw-text-field>
+  </tcw-autocomplete>
+</div>
