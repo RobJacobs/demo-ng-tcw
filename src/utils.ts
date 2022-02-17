@@ -129,7 +129,6 @@ export class Utils {
         if (isNaN(b)) {
           return 1;
         }
-
         break;
       case 'number':
         a = parseFloat(a);
@@ -140,21 +139,13 @@ export class Utils {
         if (isNaN(b)) {
           return 1;
         }
-
         break;
       default:
-        const aNum = +a;
-        const bNum = +b;
-        if (aNum === aNum && bNum === bNum) {
-          a = aNum;
-          b = bNum;
+        if (!isNaN(parseFloat(a)) && !isNaN(parseFloat(b))) {
+          return ('' + a).localeCompare('' + b, navigator.language, { numeric: true });
+        } else {
+          return ('' + a).localeCompare('' + b);
         }
-      // default:
-      //   if (!isNaN(parseFloat(a)) && !isNaN(parseFloat(b))) {
-      //     return ('' + a).localeCompare('' + b, navigator.language, { numeric: true });
-      //   } else {
-      //     return ('' + a).localeCompare('' + b);
-      //   }
     }
 
     return a < b ? -1 : a > b ? 1 : 0;
