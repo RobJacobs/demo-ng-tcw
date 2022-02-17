@@ -42,7 +42,7 @@ export class Utils {
     }, {});
   }
 
-  public static filterData(data: any[], filters: { key: string; value: string; strict?: boolean }[]): any[] {
+  public static filterData(data: any[], filters: { key: string; value: string; type?: 'string' | 'number' | 'boolean' | 'date'; strict?: boolean }[]): any[] {
     if (!isArray(data) || !data.length || !isArray(filters) || !filters.length) {
       return data;
     }
@@ -92,22 +92,20 @@ export class Utils {
 
         switch ((f as any).operator) {
           case '<>':
-            return this.comparator(value, f.value, 'string') !== 0;
+            return this.comparator(value, f.value, f.type) !== 0;
           case '>':
-            return this.comparator(value, f.value, 'string') > 0;
+            return this.comparator(value, f.value, f.type) > 0;
           case '<':
-            return this.comparator(value, f.value, 'string') < 0;
+            return this.comparator(value, f.value, f.type) < 0;
           default:
-            console.log(value.localeCompare(f.value, undefined, { sensitivity: 'accent' }));
-            value.localeCompare(f.value, undefined, { sensitivity: 'accent' });
-          // return value.indexOf(f.value) > -1;
+            return value.indexOf(f.value) > -1;
         }
       });
 
     return data.filter((rec) => filter(rec));
   }
 
-  public static comparator(a: any, b: any, type: 'string' | 'number' | 'boolean' | 'date'): number {
+  public static comparator(a: any, b: any, type: 'string' | 'number' | 'boolean' | 'date' = 'string'): number {
     // eslint-disable-next-line eqeqeq
     if (a == b) {
       return 0;
@@ -145,11 +143,18 @@ export class Utils {
 
         break;
       default:
-        if (!isNaN(parseFloat(a)) && !isNaN(parseFloat(b))) {
-          return ('' + a).localeCompare('' + b, 'en', { numeric: true });
-        } else {
-          return ('' + a).localeCompare('' + b);
+        const aNum = +a;
+        const bNum = +b;
+        if (aNum === aNum && bNum === bNum) {
+          a = aNum;
+          b = bNum;
         }
+      // default:
+      //   if (!isNaN(parseFloat(a)) && !isNaN(parseFloat(b))) {
+      //     return ('' + a).localeCompare('' + b, navigator.language, { numeric: true });
+      //   } else {
+      //     return ('' + a).localeCompare('' + b);
+      //   }
     }
 
     return a < b ? -1 : a > b ? 1 : 0;

@@ -3,10 +3,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { isDefined } from '@tyler-components-web/core';
-import { AutocompleteFilterCallback, IOption, SortDirection } from '@tylertech/tyler-components-web';
+import { AutocompleteFilterCallback, IOption } from '@tylertech/tyler-components-web';
 import { PopupDirective, DialogService, ToastService } from '@tylertech/tyler-components-web-angular';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // TODO import service
 import { AppDataService } from '../app-data.service';
@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
     name: new FormControl(),
     dateOfBirth: new FormControl(),
     address: new FormControl(),
+    include: new FormControl(),
     facet: new FormControl()
   });
   // public nameOptions: { label: string; value: number }[] = [];
@@ -42,6 +43,7 @@ export class SearchComponent implements OnInit {
     { property: 'name', label: 'Name' },
     { property: 'dateOfBirth', label: 'DOB' },
     { property: 'address', label: 'Address' },
+    { property: 'include', label: 'include' },
     { property: 'facet', label: 'Facet' }
   ];
   public operatorPopupFilter: IFilter;
@@ -116,6 +118,7 @@ export class SearchComponent implements OnInit {
   }
 
   public clearSearch() {
+    this.formGroup.get('include').setValue(false);
     this.formGroup.reset();
     this.filters.forEach((f) => delete f.operator);
   }
@@ -222,7 +225,7 @@ export class SearchComponent implements OnInit {
         this.filters.find((f) => f.property === ck).operator = filter.operator;
       } else {
         this.formGroup.get(ck).setValue(null);
-        delete this.filters.find((f) => f.property === ck).operator;
+        delete this.filters.find((f) => f.property === ck)?.operator;
       }
     });
   }
@@ -233,7 +236,7 @@ export class SearchComponent implements OnInit {
       const control = this.formGroup.get(ck) as FormControl;
       if (isDefined(control.value)) {
         const filter = { property: ck, value: control.value } as IFilter;
-        const operator = this.filters.find((f) => f.property === ck).operator;
+        const operator = this.filters.find((f) => f.property === ck)?.operator;
         if (isDefined(operator)) {
           filter.operator = operator;
         }

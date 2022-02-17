@@ -100,3 +100,17 @@
   @include mdc-card-outline($mdc-card-outline-color);
   @include mdc-theme-prop(border-color, border-color);
 }
+
+@mixin app--empty-placeholder {
+  tcw-label-value {
+    [slot='value'] {
+      &:empty {
+        &::before {
+          content: 'n/a';
+          color: var(--mdc-theme-text-secondary-on-background);
+          font-style: italic;
+        }
+      }
+    }
+  }
+}

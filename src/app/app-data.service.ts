@@ -29,6 +29,7 @@ export class AppDataService {
               r,
               filter.filters.map((f) => ({ key: f.property, value: f.value, strict: f.property === 'gender' || f.property === 'id' }))
             );
+            count = r.length;
           }
 
           if (filter.sort) {
@@ -38,8 +39,6 @@ export class AppDataService {
           if (isDefined(filter.skip) && isDefined(filter.take)) {
             r = r.slice(filter.skip || 0, filter.skip || 0 + filter.take);
           }
-
-          count = r.length;
         }
         return { count, data: r };
       })

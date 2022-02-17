@@ -63,6 +63,7 @@
 
 <div class="body">
   <form novalidate autocomplete="off" [formGroup]="formGroup" class="form" (ngSubmit)="search()">
+    {{formGroup.value | json}}
     <tcw-autocomplete formControlName="name" [filter]="nameFilter" allow-unmatched="true">
       <tcw-text-field>
         <input type="text" id="app--search--name" />
@@ -95,6 +96,10 @@
         </button>
       </tcw-icon-button>
     </tcw-text-field>
+    <tcw-checkbox>
+      <input type="checkbox" id="app--search--include" formControlName="include" [appIndeterminate]="formGroup.get('include')" />
+      <label for="app--search--include">Include</label>
+    </tcw-checkbox>
     <app-autocomplete-range [optionFilter]="optionFilter('facet')" formControlName="facet" label="Facet"></app-autocomplete-range>
   </form>
 </div>
