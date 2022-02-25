@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { isDefined } from '@tyler-components-web/core';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[appIndeterminate]'
@@ -8,33 +9,43 @@ import { isDefined } from '@tyler-components-web/core';
 export class IndeterminateDirective {
   private value?: boolean;
   private inputElement: HTMLInputElement;
+  private formControl: FormControl;
+  private changeSubscription: Subscription;
 
   @Input()
   public set appIndeterminate(control: FormControl) {
-    if (isDefined(control.value)) {
-      this.value = control.value;
-      this.inputElement.indeterminate = false;
-    }
+    this.formControl = control;
+    this.value = control.value;
+    this.inputElement.indeterminate = !isDefined(this.value);
 
-    control.valueChanges.subscribe(o => {
-      if (this.value !== control.value) {
-        const inputElement = this.element.nativeElement as HTMLInputElement;
-        if (!isDefined(this.value)) {
-          this.value = true;
-        } else if (this.value) {
-          this.value = false;
-        } else {
-          this.value = null;
-        }
-
-        control.setValue(this.value);
-        inputElement.indeterminate = !isDefined(this.value);
-      }
-    });
+    this.setSubscription();
   };
 
   constructor(private element: ElementRef) {
     this.inputElement = this.element.nativeElement as HTMLInputElement;
     this.inputElement.indeterminate = true;
+    this.inputElement.addEventListener('change', (event) => {
+      if (!isDefined(this.value)) {
+        this.value = true;
+      } else if (this.value) {
+        this.value = false;
+      } else {
+        this.value = null;
+      }
+      ;
+      this.inputElement.indeterminate = !isDefined(this.value);
+      this.changeSubscription.unsubscribe();
+      requestAnimationFrame(() => {
+        this.formControl.setValue(this.value);
+        this.setSubscription();
+      });
+    });
+  }
+
+  private setSubscription() {
+    this.changeSubscription = this.formControl.valueChanges.subscribe(o => {
+      this.inputElement.indeterminate = !isDefined(this.formControl.value);
+      this.value = this.formControl.value;
+    });
   }
 }
