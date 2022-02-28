@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { isDefined } from '@tyler-components-web/core';
 import { Subscription } from 'rxjs';
@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 @Directive({
   selector: '[appIndeterminate]'
 })
-export class IndeterminateDirective {
+export class IndeterminateDirective implements OnDestroy {
   private value?: boolean;
   private inputElement: HTMLInputElement;
   private formControl: FormControl;
@@ -40,6 +40,10 @@ export class IndeterminateDirective {
         this.setSubscription();
       });
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.changeSubscription.unsubscribe();
   }
 
   private setSubscription() {
