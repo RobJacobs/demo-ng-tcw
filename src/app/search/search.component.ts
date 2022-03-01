@@ -209,7 +209,6 @@ export class SearchComponent implements OnInit {
     } else {
       this.operatorPopupFilter.operator = value;
     }
-    console.log(this.operatorPopupFilter);
     this.operatorPopup.close();
   }
 

@@ -143,7 +143,6 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
   }
 
   public tableOptionSelected(columns: string[]) {
-    console.log(columns);
     this.tableColumns = this.tableColumns.map(c => {
       if (columns.includes(c.property)) {
         c.hidden = false;

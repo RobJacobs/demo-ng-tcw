@@ -66,7 +66,6 @@ export class AutocompleteExampleComponent {
   };
 
   public autocompleteChange(event: CustomEvent) {
-    console.log(event);
     this.autocomplete07 = event.detail;
   }
 

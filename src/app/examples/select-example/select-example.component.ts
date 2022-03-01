@@ -45,7 +45,6 @@ export class SelectExampleComponent {
   };
 
   public selectChange(event: CustomEvent) {
-    console.log(event);
     this.select07 = event.detail;
   }
 
