@@ -32,7 +32,6 @@ export class IndeterminateDirective implements OnDestroy {
       } else {
         this.value = null;
       }
-      ;
       this.inputElement.indeterminate = !isDefined(this.value);
       this.changeSubscription.unsubscribe();
       requestAnimationFrame(() => {
