@@ -1,26 +1,26 @@
 <form [formGroup]="formGroup" novalidate autocomplete="off" class="form-grid">
-  <tcw-select formControlName="select01" label="Select01 - single primitive" class="form-grid__field">
+  <tcw-select formControlName="select01" label="Select01 - single primitive">
     <tcw-option *ngFor="let option of options" [value]="option.value">{{option.label}}</tcw-option>
   </tcw-select>
 
-  <tcw-select label="Select02 - single object" [options]="objectOptions" formControlName="select02" class="form-grid__field"></tcw-select>
+  <tcw-select label="Select02 - single object" [options]="objectOptions" formControlName="select02"></tcw-select>
 
-  <tcw-select label="Select03 - multiple select" [options]="options" multiple formControlName="select03" class="form-grid__field"></tcw-select>
+  <tcw-select label="Select03 - multiple select" [options]="options" multiple formControlName="select03"></tcw-select>
 
-  <tcw-select label="Select04 - option builder" [options]="objectOptions" formControlName="select04" [optionBuilder]="optionBuilder" class="form-grid__field"></tcw-select>
+  <tcw-select label="Select04 - option builder" [options]="objectOptions" formControlName="select04" [optionBuilder]="optionBuilder"></tcw-select>
 
-  <tcw-select label="Select05 - selected text builder" [options]="options" formControlName="select05" [selectedTextBuilder]="selectedTextBuilder" class="form-grid__field"></tcw-select>
+  <tcw-select label="Select05 - selected text builder" [options]="options" formControlName="select05" [selectedTextBuilder]="selectedTextBuilder"></tcw-select>
 
-  <p class="form-grid__row-break">{{formGroup.value | json}}</p>
+  <p class="form-grid--row-break">{{formGroup.value | json}}</p>
 </form>
 
 <tcw-divider></tcw-divider>
 
 <div class="form-grid">
-  <tcw-select label="Select06 - ngModel binding" [options]="options" [(ngModel)]="select06" class="form-grid__field">
+  <tcw-select label="Select06 - ngModel binding" [options]="options" [(ngModel)]="select06">
     <span slot="helper-text">selected value: {{select06}}</span>
   </tcw-select>
-  <tcw-select label="Select07 - value binding" [options]="options" [value]="select07" (change)="selectChange($event)" class="form-grid__field">
+  <tcw-select label="Select07 - value binding" [options]="options" [value]="select07" (change)="selectChange($event)">
     <span slot="helper-text">selected value: {{select07}}</span>
   </tcw-select>
 </div>

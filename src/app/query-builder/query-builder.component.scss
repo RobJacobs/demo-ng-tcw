@@ -17,7 +17,7 @@ $form-column-gap: 16;
     margin: 8px 0;
 
     &__condition {
-      width: #{$form-cell-width / 2}px;
+      width: #{calc($form-cell-width / 2)}px;
       --tyl-select-margin-top: 0;
       --tyl-select-margin-bottom: 0;
       --tyl-select-border-display: none;

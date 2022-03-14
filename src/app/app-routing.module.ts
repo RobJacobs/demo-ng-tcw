@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'search', loadChildren: () => import('./search/search.module').then((m) => m.SearchModule) },
   { path: 'query-builder', loadChildren: () => import('./query-builder/query-builder.module').then((m) => m.QueryBuilderModule) },
   { path: 'map-view', loadChildren: () => import('./map-view/map-view.module').then((m) => m.MapViewModule) },
+  { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
   { path: 'examples', loadChildren: () => import('./examples/examples.module').then((m) => m.ExamplesModule) },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

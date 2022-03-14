@@ -1,0 +1,22 @@
+<tcw-toolbar class="header">
+  <h2 slot="start" class="tyl-typography--title">Icons</h2>
+</tcw-toolbar>
+
+<div class="body">
+  <tcw-autocomplete [filter]="iconOptionFilter" (tcw-autocomplete-change)="iconSelected($event.detail)">
+    <tcw-text-field>
+      <tcw-icon slot="leading" [name]="selectedIcon" *ngIf="selectedIcon"></tcw-icon>
+      <input id="autocomplete01" type="text" />
+      <label for="autocomplete01">Icon</label>
+      <tcw-icon slot="trailing" class="tyl-dropdown-icon tyl-color-icon" aria-hidden="true" name="arrow_drop_down"></tcw-icon>
+    </tcw-text-field>
+  </tcw-autocomplete>
+
+  <div class="all-icons">
+    <div class="icon" *ngFor="let icon of moduleCache.iconOptions">
+      <tcw-icon [name]="icon.value"></tcw-icon>
+      <div class="tyl-typography--caption">{{icon.value}}</div>
+    </div>
+  </div>
+
+</div>

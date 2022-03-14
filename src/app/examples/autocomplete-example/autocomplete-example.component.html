@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" novalidate autocomplete="off" class="form-grid">
-  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete01" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete01">
     <tcw-text-field>
       <input id="autocomplete01" type="text" />
       <label for="autocomplete01">Autocomplete01 - single primitive</label>
@@ -7,7 +7,7 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete02" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete02">
     <tcw-text-field>
       <input id="autocomplete01" type="text" />
       <label for="autocomplete01">Autocomplete02 - single object</label>
@@ -15,7 +15,7 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <tcw-autocomplete [filter]="multipleSelectFilter" formControlName="autocomplete03" multiple class="form-grid__field">
+  <tcw-autocomplete [filter]="multipleSelectFilter" formControlName="autocomplete03" multiple>
     <tcw-text-field>
       <input id="autocomplete01" type="text" />
       <label for="autocomplete01">Autocomplete03 - multiple select</label>
@@ -23,7 +23,7 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete04" [optionBuilder]="optionBuilder" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectObjectFilter" formControlName="autocomplete04" [optionBuilder]="optionBuilder">
     <tcw-text-field>
       <input id="autocomplete04" type="text" />
       <label for="autocomplete04">Autocomplete04 - option builder</label>
@@ -31,7 +31,7 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete05" [selectedTextBuilder]="selectedTextBuilder" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" formControlName="autocomplete05" [selectedTextBuilder]="selectedTextBuilder">
     <tcw-text-field>
       <input id="autocomplete05" type="text" />
       <label for="autocomplete05">Autocomplete05 - selected text builder</label>
@@ -39,13 +39,13 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <p class="form-grid__row-break">{{formGroup.value | json}}</p>
+  <p class="form-grid--row-break">{{formGroup.value | json}}</p>
 </form>
 
 <tcw-divider></tcw-divider>
 
 <div class="form-grid">
-  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [(ngModel)]="autocomplete06" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [(ngModel)]="autocomplete06">
     <tcw-text-field>
       <input id="autocomplete06" type="text" />
       <label for="autocomplete06">Autocomplete06 - ngModel binding</label>
@@ -54,7 +54,7 @@
     </tcw-text-field>
   </tcw-autocomplete>
 
-  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [value]="autocomplete07" (tcw-autocomplete-change)="autocompleteChange($event)" class="form-grid__field">
+  <tcw-autocomplete [filter]="singleSelectPrimitiveFilter" [value]="autocomplete07" (tcw-autocomplete-change)="autocompleteChange($event)">
     <tcw-text-field>
       <input id="autocomplete07" type="text" />
       <label for="autocomplete07">Autocomplete07 - value binding</label>

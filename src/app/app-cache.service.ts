@@ -39,6 +39,7 @@ export class AppCacheService implements IAppCacheService {
       { label: 'Search', value: 'search', icon: 'search' },
       { label: 'Query Builder', value: 'query-builder', icon: 'category' },
       { label: 'Map View', value: 'map-view', icon: 'map' },
+      { label: 'Icons', value: 'icons', icon: 'star' },
       {
         label: 'Examples', icon: 'directions', children: [
           { label: 'Autocomplete', value: 'examples/autocomplete' },
