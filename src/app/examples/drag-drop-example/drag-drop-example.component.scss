@@ -1,0 +1,53 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+:host {
+  display: block;
+  padding: 24px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: 320px 320px;
+  gap: 24px;
+
+  tcw-list {
+    --tyl-list-padding: 0;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.drag-item,
+.cdk-drag {
+  background-color: var(--mdc-theme-surface);
+  border: $tyl-border;
+  cursor: move;
+
+  &-preview {
+    @include mdc-elevation(3);
+    background-color: var(--mdc-theme-surface);
+    border: solid 2px $material-color-indigo-500;
+    cursor: move;
+  }
+  &-placeholder {
+    .cdk-drag__content {
+      visibility: hidden;
+    }
+    background-color: $material-color-indigo-50;
+    border: dashed 1px $material-color-indigo-500;
+  }
+  &-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.cdk-drop-list {
+  &-dragging {
+    .cdk-drag:not(.cdk-drag-placeholder) {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}

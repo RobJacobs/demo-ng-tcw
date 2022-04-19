@@ -10,7 +10,7 @@ export abstract class BaseTableComponent {
 
   public abstract filterCache: IFilterParameter;
 
-  constructor() {}
+  constructor() { }
 
   public initializeSort() {
     if (this.filterCache.sort.property?.length > 0) {
@@ -54,7 +54,7 @@ export abstract class BaseTableComponent {
   }
 
   protected resetTable(): void {
-    this.filterCache.sort = { property: undefined, direction: SortDirection.Ascending };
+    this.filterCache.filters = null;
     this.filterCache.skip = 0;
   }
 

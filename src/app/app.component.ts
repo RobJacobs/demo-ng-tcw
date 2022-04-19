@@ -14,12 +14,6 @@ export class AppComponent {
   constructor(private router: Router, private route: ActivatedRoute, public appCache: AppCacheService) {
     this.initRouteWatch();
     this.initLayoutWatch();
-
-    window.addEventListener('popstate', (event) => {
-      document.querySelectorAll('tcw-dialog').forEach((element: DialogComponent) => {
-        element.open = false;
-      });
-    });
   }
 
   private initRouteWatch(): void {

@@ -1,0 +1,25 @@
+<div class="card-container" cdkDropListGroup>
+  <div class="card">
+    <div class="title">List 1</div>
+
+    <tcw-list cdkDropList [cdkDropListData]="items01" (cdkDropListDropped)="drop($event)">
+      <tcw-list-item *ngFor="let item of items01" cdkDrag>
+        <div class="tyl-list-item__text cdk-drag__content">{{ item }}</div>
+      </tcw-list-item>
+      <tcw-list-item class="cdk-drag-placeholder" *cdkDragPlaceholder></tcw-list-item>
+    </tcw-list>
+
+  </div>
+
+  <div class="card">
+    <div class="title">List 2</div>
+
+    <tcw-list cdkDropList [cdkDropListData]="items02" (cdkDropListDropped)="drop($event)">
+      <tcw-list-item *ngFor="let item of items02" cdkDrag>
+        <div class="tyl-list-item__text cdk-drag__content">{{ item }}</div>
+      </tcw-list-item>
+      <tcw-list-item class="cdk-drag-placeholder" *cdkDragPlaceholder></tcw-list-item>
+    </tcw-list>
+
+  </div>
+</div>

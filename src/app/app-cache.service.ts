@@ -43,7 +43,9 @@ export class AppCacheService implements IAppCacheService {
       {
         label: 'Examples', icon: 'directions', children: [
           { label: 'Autocomplete', value: 'examples/autocomplete' },
-          { label: 'Select', value: 'examples/select' }
+          { label: 'Drag Drop', value: 'examples/drag-drop' },
+          { label: 'Select', value: 'examples/select' },
+          { label: 'Two way binding', value: 'examples/two-way-binding' }
         ]
       }
     ]

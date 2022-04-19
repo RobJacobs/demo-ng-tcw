@@ -1,0 +1,7 @@
+<div class="two-way-binding">
+  <tcw-text-field>
+    <input type="text" id="examples--name" [(ngModel)]="name" />
+    <label for="examples--name" slot="label">Parent component name</label>
+  </tcw-text-field>
+  <app-examples-two-way-binding-child [(name)]="name"></app-examples-two-way-binding-child>
+</div>

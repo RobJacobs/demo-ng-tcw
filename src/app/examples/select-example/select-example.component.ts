@@ -26,6 +26,9 @@ export class SelectExampleComponent {
   }
 
   public optionBuilder: SelectOptionBuilder = (option: IOption, parentElement: HTMLElement) => {
+    parentElement.style.setProperty('--tyl-list-item-height', 'auto');
+    parentElement.style.setProperty('--tyl-list-item-padding', '8px 16px');
+
     const titleSpan = document.createElement('span');
     titleSpan.classList.add('tyl-list-item__title');
     titleSpan.innerText = option.value.description;
