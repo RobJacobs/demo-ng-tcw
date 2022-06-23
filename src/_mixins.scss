@@ -37,14 +37,56 @@
   }
 }
 
+@function app--form-grid-width($columns: 1, $width: $form-grid-column-width, $gap: $form-grid-gap) {
+  @return (($columns - 1) * $gap) + ($columns * $width);
+}
+
 @mixin app--form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 320px);
-  grid-auto-rows: minmax(72px, auto);
-  column-gap: 16px;
+  grid-template-columns: repeat(auto-fill, #{$form-grid-column-width}px);
+  gap: #{$form-grid-gap}px;
+  // force a 72px min row height for tcw input with helper text
+  // grid-auto-rows: minmax(72px, auto);
 
   &--row-break {
     grid-column-start: 1;
+  }
+
+  > * {
+    width: #{$form-grid-column-width}px;
+    overflow: hidden;
+    word-break: break-word;
+  }
+
+  &--col-span {
+    grid-column: 1 / -1;
+    &#{&} {
+      width: auto;
+    }
+  }
+
+  &--col-span2 {
+    grid-column: span 2;
+    &#{&} {
+      width: #{$form-grid-column-width * 2 + $form-grid-gap}px;
+    }
+  }
+
+  &--col-span3 {
+    grid-column: span 3;
+    &#{&} {
+      width: #{$form-grid-column-width * 3 + $form-grid-gap * 2}px;
+    }
+  }
+
+  [slot='value'] {
+    &:empty {
+      &::before {
+        content: 'n/a';
+        color: var(--mdc-theme-text-secondary-on-background);
+        font-style: italic;
+      }
+    }
   }
 }
 

@@ -18,9 +18,9 @@ export class IconsComponent {
       return [this.moduleCache.iconOptions?.find(o => o.value === value)];
     } else {
       if (filter.length) {
-        return this.moduleCache.iconOptions?.filter(o => o.label.toLocaleLowerCase().includes(filter.toLocaleLowerCase())).slice(0, 99);
+        return this.moduleCache.iconOptions?.filter(o => o.label.toLocaleLowerCase().includes(filter.toLocaleLowerCase())).slice(0, 100);
       } else {
-        return this.moduleCache.iconOptions?.slice(0, 99);
+        return this.moduleCache.iconOptions?.slice(0, 100);
       }
     }
   };

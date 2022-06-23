@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -6,9 +6,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
+
   @Input() hasHeader = true;
   @Input() hasFooter = true;
-  @Input() outlined = false;
+  @Input() border: 'raised' | 'outlined' = 'raised';
 
-  constructor() {}
+  constructor() { }
+
+  @HostBinding('class.app-card--raised') public get raisedClass() { return this.border === 'raised'; }
+  @HostBinding('class.app-card--outlined') public get outlinedClass() { return this.border === 'outlined'; }
 }

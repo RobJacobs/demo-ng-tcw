@@ -60,7 +60,7 @@ export class TableUtils {
   public static createExpanderRow<T>(
     rowIndex: number,
     tableElement: TableComponent,
-    injector: Injector,
+    viewContainerRef: ViewContainerRef,
     component: Type<T>,
     title?: string,
     data?: any,
@@ -80,10 +80,7 @@ export class TableUtils {
           });
         } else {
           tableElement.expandRow(rowIndex, () => {
-            const viewContainerRef = injector.get(ViewContainerRef);
-            const componentFactoryResolver = injector.get(ComponentFactoryResolver);
-            componentRef = viewContainerRef.createComponent(componentFactoryResolver.resolveComponentFactory(component));
-
+            componentRef = viewContainerRef.createComponent(component);
             componentRef.instance.rowIndex = rowIndex;
             if (isDefined(data)) {
               componentRef.instance.data = data;

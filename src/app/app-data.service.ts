@@ -46,7 +46,7 @@ export class AppDataService {
   }
 
   public getPerson(id: number): Observable<IPerson> {
-    return this.httpClient.get('data/people/people.json').pipe(map((r) => (r as IPerson[]).find((p) => p.id.toString() === id.toString()))) as any;
+    return this.httpClient.get('data/people/people.json').pipe(map((r) => (r as IPerson[]).find((p) => p.id.toString() === id.toString())));
   }
 
   public getSearches(key: string): Observable<any> {

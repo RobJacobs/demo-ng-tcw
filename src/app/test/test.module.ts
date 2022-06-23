@@ -12,6 +12,7 @@ import { ChildComponent } from './child/child.component';
 import { HomeComponent } from './home/home.component';
 import { DetailOneComponent } from './detail-one/detail-one.component';
 import { DetailTwoComponent } from './detail-two/detail-two.component';
+import { ArrayFindPipeModule } from '../shared/pipes/array-find/array-find.module';
 
 const routes: Routes = [
   {
@@ -26,10 +27,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), SharedFormsModule, AutocompleteRangeModule, CardModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedFormsModule, AutocompleteRangeModule, CardModule, ArrayFindPipeModule],
   exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [TestComponent, ChildComponent, HomeComponent, DetailOneComponent, DetailTwoComponent],
   providers: [TestCacheService]
 })
-export class TestModule {}
+export class TestModule { }

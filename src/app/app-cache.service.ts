@@ -10,7 +10,7 @@ export class AppCacheService implements IAppCacheService {
   public menu = {
     isOpen: true,
     // 'permanent' | 'dismissible' | 'modal' | 'mini' | 'min-hover' = 'dismissible'
-    type: 'mini' as 'dismissible' | 'mini',
+    type: 'dismissible' as 'dismissible' | 'mini',
     options: [
       { label: 'Dashboard', value: 'dashboard', icon: 'home' },
       { label: 'Profile', value: 'profile', icon: 'person' },

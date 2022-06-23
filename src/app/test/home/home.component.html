@@ -6,11 +6,38 @@
 </tcw-toolbar>
 
 <div class="body">
-  <ng-container *ngTemplateOutlet="mode === 'detail-one' ? appDetailOne : appDetailTwo"></ng-container>
 
-  <ng-template #variableTemplate [ngTemplateOutlet]="variableTemplate" [ngTemplateOutletContext]="{ $implicit: { cats: 1, dogs: 2 } }" let-variable>
-    <p>{{variable | json}}</p>
-  </ng-template>
+  <app-card [hasHeader]="true" [hasFooter]="true">
+    <div app-card-header slot="start">
+      <span>Card header</span>
+    </div>
+    <div app-card-header slot="end">
+      <tcw-icon-button>
+        <button type="button">
+          <tcw-icon name="close"></tcw-icon>
+        </button>
+      </tcw-icon-button>
+    </div>
+
+    <ng-container *ngTemplateOutlet="mode === 'detail-one' ? appDetailOne : appDetailTwo"></ng-container>
+
+    <ng-template #variableTemplate [ngTemplateOutlet]="variableTemplate" [ngTemplateOutletContext]="{ $implicit: { cats: 1, dogs: 2 } }" let-variable>
+      <p>{{variable | json}}</p>
+    </ng-template>
+
+    <div>{{0 | arrayFind:data:'value':'label'}}</div>
+    <div>{{1 | arrayFind:data:'value' | json}}</div>
+
+    <div app-card-footer slot="end">
+      <tcw-button type="outlined">
+        <button type="button">Cancel</button>
+      </tcw-button>
+      <tcw-button type="raised">
+        <button type="button">Save</button>
+      </tcw-button>
+    </div>
+  </app-card>
+
 </div>
 
 <ng-template #appDetailOne>

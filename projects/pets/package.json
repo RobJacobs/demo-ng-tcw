@@ -2,21 +2,21 @@
   "name": "pets",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/animations": "~12.2.0",
-    "@angular/common": "~12.2.0",
-    "@angular/compiler": "~12.2.0",
-    "@angular/core": "~12.2.0",
-    "@angular/forms": "~12.2.0",
-    "@angular/platform-browser": "~12.2.0",
-    "@angular/platform-browser-dynamic": "~12.2.0",
-    "@angular/router": "~12.2.0",
-    "@tyler-components-web/core": "1.3.1",
-    "@tyler-components-web/landing-page-layout": "1.11.0",
-    "@tylertech/tyler-components-web": "1.11.0",
-    "@tylertech/tyler-components-web-angular": "12.1.0",
-    "@tylertech/tyler-icons": "1.6.0"
+    "@angular/animations": "~13.3.10",
+    "@angular/cdk": "13.3.9",
+    "@angular/common": "~13.3.10",
+    "@angular/compiler": "~13.3.10",
+    "@angular/core": "~13.3.10",
+    "@angular/forms": "~13.3.10",
+    "@angular/platform-browser": "~13.3.10",
+    "@angular/platform-browser-dynamic": "~13.3.10",
+    "@angular/router": "~13.3.10",
+    "@tyler-components-web/core": "1.3.2",
+    "@tylertech/tyler-components-web": "1.15.0",
+    "@tylertech/tyler-components-web-angular": "13.0.0",
+    "@tylertech/tyler-icons": "^1.13.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.0"
   }
 }

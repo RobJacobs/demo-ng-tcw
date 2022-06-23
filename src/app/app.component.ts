@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
-import { DialogComponent } from '@tylertech/tyler-components-web';
 import { filter } from 'rxjs/operators';
 
 import { AppCacheService } from './app-cache.service';
@@ -11,7 +10,10 @@ import { AppCacheService } from './app-cache.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private router: Router, private route: ActivatedRoute, public appCache: AppCacheService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public appCache: AppCacheService) {
     this.initRouteWatch();
     this.initLayoutWatch();
   }

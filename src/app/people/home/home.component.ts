@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { isArray } from '@tyler-components-web/core';
 import { CellAlign, TableComponent, TextFieldComponentDelegate } from '@tylertech/tyler-components-web';
@@ -32,7 +32,7 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
   public selectedPeople: IPerson[] = [];
   public selectedTableColumns = this.optionalTableColumns.filter(c => !c.hidden).map(c => c.property);
 
-  constructor(private router: Router, private appDataService: AppDataService, public moduleCache: PeopleCacheService, private injector: Injector) {
+  constructor(private router: Router, private appDataService: AppDataService, public moduleCache: PeopleCacheService, private viewContainerRef: ViewContainerRef) {
     super();
 
     const storedTableColumns = JSON.parse(localStorage.getItem(this.moduleCache.homeView.storageKey)) as Array<{
@@ -102,7 +102,7 @@ export class HomeComponent extends BaseTableComponent implements OnInit, OnDestr
             TableUtils.createExpanderRow(
               rowIndex,
               this.peopleTable.nativeElement,
-              this.injector,
+              this.viewContainerRef,
               TableDetailComponent,
               'Expand table row',
               data

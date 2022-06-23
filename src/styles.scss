@@ -25,10 +25,6 @@ router-outlet {
   display: none;
 }
 
-tcw-linear-progress {
-  --mdc-theme-tertiary: var(--mdc-theme-secondary);
-}
-
 tcw-page-state {
   --tyl-page-state-vertical-margin: 32px;
 }
